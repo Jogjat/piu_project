@@ -24,8 +24,15 @@ class Dashboard extends MY_Controller
         $this->template->main('dashboard/dashboard_v',$data);
     }
 
-    public function test()
+    public function index2($var)
     {
 
+        $data = array(
+            'var1' => $var,
+            'title' => 'hello world',
+            'grup' => $this->dashboard_model->grup()->result()
+        );
+//        die(var_dump($data));
+        $this->template->main('dashboard/test',$data);
     }
 }
