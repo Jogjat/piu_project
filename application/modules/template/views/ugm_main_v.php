@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><?php echo isset($title) ? $title : ""; ?> - Simansur</title>
+    <title><?php echo isset($title) ? $title : ""; ?> - PIU</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
@@ -63,23 +63,10 @@
             <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <img src="<?php echo base_url('/') ?>assets/images/user.jpg" alt="" class="pull-xs-left m-r-2 border-round"
                  style="width: 54px; height: 54px;">
-            <div class="font-size-16"><span class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->first_name?></strong><br>Simansur</div>
+            <div class="font-size-16"><span class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->first_name?></strong><br>PIU</div>
         </li>
         <?php echo nav_menu('Dashboard','dashboard',isset($dashboard) ? $dashboard : '','fa-dashboard') ?>
-		<?php if ( $this->ion_auth->in_group( array( 'keuangan' ) ) ): ?>
-            <?php echo nav_menu('Surat Perjalanan','#','active','fa-envelope',array(array('nama' => 'SPPD','uri' => 'sppd','active'=>isset($sppd) ? $sppd: ''),array('nama' => 'SPJ','uri' => 'spj','active'=>isset($spj) ? $spj: ''))) ?>
-            <?php echo nav_menu('Pengeluaran','pengeluaran',isset($pengeluaran) ? $pengeluaran: '','fa-dollar') ?>
-            <?php echo nav_menu('Uang Pinjaman','uang_pinjaman',isset($uang_pinjaman) ? $uang_pinjaman : '', 'fa-dollar') ?>
-		<?php endif; ?>
-
-		<?php if ( $this->ion_auth->in_group( array( 'pengelola_surat' ) ) ): ?>
-            <?php echo nav_menu('Surat Masuk','surat_masuk',isset($surat_masuk) ? $surat_masuk: '', 'fa-arrow-right') ?>
-            <?php echo nav_menu('Surat Keluar','surat_keluar',isset($surat_keluar) ? $surat_keluar: '', 'fa-arrow-left') ?>
-		<?php endif; ?>
-		<?php if ( $this->ion_auth->is_admin() ): ?>
-            <?php echo nav_menu('Kelola User','auth',isset($kelola_user) ? $kelola_user: '', 'fa-users') ?>
-		<?php endif ?>
-        <?php echo nav_menu('Konfigurasi','konfigurasi',isset($konfigurasi) ? $konfigurasi: '', 'fa-cog') ?>
+        <?php echo nav_menu('Dokumentasi','dokumentasi',isset($dokumentasi) ? $dokumentasi: '', 'fa-folder') ?>
         <li class="px-nav-box b-t-1 p-a-2">
             <a href="<?php echo base_url('auth/logout')?>" class="btn btn-danger btn-block btn-outline">Sign Out</a>
         </li>
@@ -94,7 +81,7 @@
                         class="px-demo-logo-3"></span><span class="px-demo-logo-4"></span><span
                         class="px-demo-logo-5"></span><span class="px-demo-logo-6"></span><span
                         class="px-demo-logo-7"></span><span class="px-demo-logo-8"></span><span
-                        class="px-demo-logo-9"></span></span><strong>Si</strong>Mansur</a>
+                        class="px-demo-logo-9"></span></span><strong>PIU</strong></a>
     </div>
 
     <!-- Navbar togglers -->
