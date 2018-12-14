@@ -4297,7 +4297,8 @@ button.list-group-item-danger {
 .modal-footer {
   padding: 20px;
   text-align: right;
-  border-top: 1px solid #272e35; }
+  border-top: 1px solid #272e35; 
+}
   .modal-footer:before, .modal-footer:after {
     content: " ";
     display: table; }

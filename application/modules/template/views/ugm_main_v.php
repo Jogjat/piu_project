@@ -13,6 +13,12 @@
           type="text/css">
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
     <!-- DEMO ONLY: Function for the proper stylesheet loading according to the demo settings -->
+    <style type="text/css">
+        #myModelDialog{
+            z-index: 1100 !important; /*set to something other than 9999*/
+        }
+        
+    </style>
     <script>function _pxDemo_loadStylesheet(a, b, c) {
             var c = c || decodeURIComponent((new RegExp(";\\s*" + encodeURIComponent("px-demo-theme") + "\\s*=\\s*([^;]+)\\s*;", "g").exec(";" + document.cookie + ";") || [])[1] || "default"),
                 d = "1" === decodeURIComponent((new RegExp(";\\s*" + encodeURIComponent("px-demo-rtl") + "\\s*=\\s*([^;]+)\\s*;", "g").exec(";" + document.cookie + ";") || [])[1] || "0");
@@ -195,5 +201,7 @@ if(current_url() == base_url('dashboard') || current_url() == base_url('dashboar
     $.growl.warning({ message: "<?php echo $this->session->flashdata('warning');?>" });
     <?php } ?>
 </script>
+
+
 </body>
 </html>
