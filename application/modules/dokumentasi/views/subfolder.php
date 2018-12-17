@@ -1,34 +1,36 @@
+<h4 class="m-y-1 font-weight-normal"><i class="fa fa-home"></i>&nbsp;&nbsp;/ Uploads</h4>
 <div class="row">
     <div class="col-md-offset-10 col-md-2 ">
-       <a href="<?php echo base_url(); ?>dokumentasi/tambah id="btnAdd"  target="ajax-modal" class="btn btn-info"><span class="fa fa-plus"></span>&nbsp; ADD FOLDER</a>
+      <a data-toggle="modal" data-target="#tambah-folder" class="btn btn-primary"><span class="fa fa-plus"></span>&nbsp; ADD FOLDER</a>
     </div>
 </div>
+
     <?=$this->session->flashdata('notif')?>
-    <table class="table table-striped table-bordered">
+    <table class="table">
       <thead>
-        <tr>
+        <tr><center>
           <th>No.</th>
           <th>Folder Name</th>
           <th>Create Date</th>
-          <th><center>Add Subfolder</center></th>
           <th><center>Action</center></th>
-        </tr>
+        </tr></center>
       </thead>
       <tbody>
       <?php
       if($fetch_data->num_rows() > 0)
       {
-        $no=0;
         foreach($fetch_data->result() as $data)
         {
+          $no=0;
       ?>
         <tr>
-          <td><?php echo ++$no; ?></td>
-          <td><a href="<?php echo base_url(); ?>dokumentasi/subfolder/<?php echo $data->id_folder ?>"><?php echo $data->folder_name; ?></a></td>
-          <td><?php echo strftime('%A, %d %B %Y', strtotime($data->create_date)); ?></td>
-          <td>
-            <center><a href="#" class="btn btn-info">Add</a>
-            </center>
+          <td><?php echo $no++; ?></td>
+          <td><?php echo $data->folder_name; ?></td>
+          <td><?php 
+            $date = new DateTime();
+            $date->setTimeZone(new DateTimeZone("Asia/Jakarta"));
+            echo $date->format('d-m-y H:i:s');
+            ?>
           </td>
           <td><center>
             <a href="<?php echo base_url(); ?>dokumentasi/edit/<?php echo $data->id_folder ?>" id="btnEdit"  target="ajax-modal" class="btn btn-info">Edit</a>
@@ -49,4 +51,3 @@
       </tbody>
     </table>
   </div>
-

@@ -35,6 +35,7 @@
       </form>
     </div>
   </div>
+
 <script type="text/javascript">
 $(function() {
       $('.select2-example').select2({
