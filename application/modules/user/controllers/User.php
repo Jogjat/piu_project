@@ -27,11 +27,18 @@ class User extends MY_Controller
     }
 
     public function add(){
-        $data=array(
-            'title' => 'User',
-            'user' => 'active'
-        );
-        $this->template->main('user/tambah',$data);
+        if(count($_POST) >0){
+            $data = array(
+                'title' => 'User',
+                'user' => 'active'
+            );
+            $this->user_model->add($data);
+            $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> User Successfuly Added <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('user/index');
+        }
+        else{
+            $this->load->view("user/tambah");
+        }
     }
 
     public function update_folder()
@@ -47,9 +54,9 @@ class User extends MY_Controller
         $data = array(
             'title' => 'User',
             'user' => 'active',
-            'user'=>$this->user_model->get_user()->result()
+            'users'=>$this->user_model->get_user()->row()
         );
-        $this->template->main('user/tambah',$data);
+        $this->template->main('user/edit',$data);
 
     }
 

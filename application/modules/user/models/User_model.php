@@ -9,7 +9,7 @@ class User_model extends CI_Model{
     }
     public function user(){
         $query = $this->db->get('piu.users');
-        return $query->result_array();
+        return $query->result();
     }
 
 	public function fetch_data()

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-offset-10 col-md-2 ">
-      <a href="<?php echo base_url(); ?>user/add" id="btnAdd" class="btn btn-info"><span class="fa fa-plus"></span>&nbsp; ADD USER</a>
+      <a href="<?php echo base_url(); ?>user/tambah" id="btnAdd" target="ajax-modal" class="btn btn-info"></span>&nbsp; ADD USER</a>
     </div>
 </div>
     <?=$this->session->flashdata('notif')?>
@@ -26,7 +26,7 @@
           <td><?php echo $data->username; ?></td>
           <td><?php echo $data->type; ?></td>
           <td><center>
-            <a href="<?php echo base_url(); ?>user/edit/<?php echo $data->id_user ?>" id="btnEdit" class="btn btn-info">Edit</a>
+            <a href="<?php echo base_url(); ?>user/edit/<?php echo $data->id_user ?>" id="btnEdit" target="ajax-modal" class="btn btn-info">Edit</a>
             <a class="btn btn-danger">Delete</a>
           </center>
           </td>

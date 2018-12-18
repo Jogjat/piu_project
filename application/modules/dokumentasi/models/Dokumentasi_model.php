@@ -2,27 +2,20 @@
 
 class Dokumentasi_model extends CI_Model{
 
-	var $table_folder='piu.folder';
-	var $table_user='piu.users';
+	var $tbl_folder='piu.folder';
+	var $tbl_user='piu.users';
 
     public function __construct(){
         parent::__construct();
     }
     public function folder(){
-        $query = $this->db->get('piu.folder');
-        return $query->result_array();
+        $query = $this->db->where('parent',0)->get($this->tbl_folder);
+        return $query;
     }
 
-    public function subfolder(){
-        // $query = $this->db->get('piu.folder')->where('parent',$id);
-        $query = $this->db->get('piu.folder');
-        return $query->result_array();
-    }
-
-	public function fetch_data()
-    {
-        $data = $this->db->get("piu.folder");
-        return $data;
+    public function get_subfolder($id){
+        $query = $this->db->where('parent',$id)->get($this->tbl_folder);
+        return $query;
     }
 
     public function tambah($data){
@@ -63,12 +56,12 @@ class Dokumentasi_model extends CI_Model{
     }
 
     function get_edit($id){
-    	$data=$this->db->select('*')->from($this->table_folder)->where('id_folder',$id)->get();
+    	$data=$this->db->select('*')->from($this->tbl_folder)->where('id_folder',$id)->get();
     	return $data;
     }
 
     function get_user(){
-    	$data=$this->db->select('*')->from($this->table_user)->get();
+    	$data=$this->db->select('*')->from($this->tbl_user)->get();
     	return $data;
     }
 
