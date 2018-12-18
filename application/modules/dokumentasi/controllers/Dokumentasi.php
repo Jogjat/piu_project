@@ -29,22 +29,21 @@ class Dokumentasi extends MY_Controller
             'dokumentasi' => 'active'
         );
         $this->template->main('dokumentasi/index',$data);
-        //$this->load->view('view_admin',$data);
     }
-    //public function index()
-    //{
-    //    $data = array(
-    //        'dokumentasi'   => 'active',
-    //        'title'         => 'Dokumentasi',
-    //        'data'          => $this->dokumentasi_model->show_folder()
-    //    );
-        
-    //    $this->template->main('dokumentasi/index',$data);
-        
-    //}
+    public function show(){
+        if($this->ion_auth->user()->row()->username!='administrator'){
+            $this->dokumentasi_model->show($data);
+        }
+        else{
+            $this->load->view("dokumentasi/index");
+        }
+    }
+    
     public function tambah(){
-        
-        $data = array(
+    //post form tambah folder
+        if(count($_POST) > 0){.
+            //die(var_dump("test post"));
+            $data = array(
             'id_folder' => $this->input->post('id_folder'),
             'folder_name' => $this->input->post('folder_name'),
             'create_date' => $this->input->post('create_date'),
@@ -55,34 +54,28 @@ class Dokumentasi extends MY_Controller
     $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> Data Berhasil ditambahkan <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         redirect('dokumentasi/index');
     }
-
+    //klik button tambah folder
+    else{
+        $this->load->view("dokumentasi/tambah");
+        }
+    }
+    public function hapus()
+    {
+        if(count($_POST) > 0){
+            $data = array(
+            'id_folder' => $this->input->post('id_folder'),
+        );
+        $this->dokumentasi_model->hapus($id_folder);
+        $this->session->set_flashdata('hapus','<div class="alert alert-success" role="alert"> Data Berhasil dihapus <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        redirect('dokumentasi/index');
+    }
+    else{
+        $this->load->view("dokumentasi/hapus");
+        }
+    }
+        
+        
 }
+
+        
    
-    
-    
-
-    //public function tambah()
-    //{
-    //    $data = array(
-    //        'dokumentasi'   => 'active',
-    //        'title'         => 'Tambah Dokumentasi'
-    //    );
-
-    //    $this->template->main('dokumentasi/tambah',$data);
-    //}
-    //public function add()
-    //{
-    //    $folder = $this->dokumentasi_model;
-    //    $validation = $this->form_validation;
-    //    $validation->set_rules($folder->rules());
-
-    //    if ($validation->run()) {
-    //        $folder->save();
-    //        $this->session->set_flashdata('success', 'Berhasil disimpan');
-    //    }
-
-    //    $this->load->view("dokumentasi/index/new_form");
-    //}
-
-
-    

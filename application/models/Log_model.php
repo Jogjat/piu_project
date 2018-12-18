@@ -12,8 +12,9 @@ class Log_model extends CI_Model{
 			'activity'  => $activity,
 			'status'    => $status,
 			'new'       => $new,
-			'staff_id'  => $this->ion_auth->logged_in() ? $this->ion_auth->user()->row()->id : 0
+			'id_user'  => $this->ion_auth->logged_in() ? $this->ion_auth->user()->row()->id : 0
 		);
+		
 
 		$this->db->insert($this->table,$data);
 	}

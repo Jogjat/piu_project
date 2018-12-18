@@ -63,10 +63,16 @@
             <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <img src="<?php echo base_url('/') ?>assets/images/user.jpg" alt="" class="pull-xs-left m-r-2 border-round"
                  style="width: 54px; height: 54px;">
-            <div class="font-size-16"><span class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->first_name?></strong><br>PIU</div>
+            <div class="font-size-16"><span class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->username?></strong><br>PIU</div>
         </li>
+        <?php if($this->ion_auth->user()->row()->username=='administrator'){?> 
         <?php echo nav_menu('Dashboard','dashboard',isset($dashboard) ? $dashboard : '','fa-dashboard') ?>
         <?php echo nav_menu('Dokumentasi','dokumentasi',isset($dokumentasi) ? $dokumentasi: '', 'fa-folder') ?>
+    <?php }else{?>
+        <?php echo nav_menu('Dokumentasi','dokumentasi',isset($dokumentasi) ? $dokumentasi: '', 'fa-folder') ?>
+        <?php echo nav_menu('Progress Report','progress_report',isset($progress_report) ? $progress_report: '', 'fa-table') ?>
+        <?php echo nav_menu('Logbook','logbook',isset($logbook) ? $logbook: '', 'fa-clipboard') ?>
+    <?php }?>
         <li class="px-nav-box b-t-1 p-a-2">
             <a href="<?php echo base_url('auth/logout')?>" class="btn btn-danger btn-block btn-outline">Sign Out</a>
         </li>
