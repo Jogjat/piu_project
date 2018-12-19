@@ -172,7 +172,7 @@ class Dokumentasi extends MY_Controller
               $this->load->library('upload', $config);
               $this->upload->initialize($config);
 
-              // File upload
+              //upload file
               if($this->upload->do_upload('dokumentasi_model')){
                 // Get data about the file
                 $fileData = $this->upload->data();
@@ -187,10 +187,7 @@ class Dokumentasi extends MY_Controller
 
             if(!empty($uploadData)){
                 // Insert files data into the database
-                $insert = $this->dokumentasi_model->uploadFiles($uploadData);
-                
-                // Upload status message
-                // $statusMsg = $insert?'Files uploaded successfully.':'Some problem occurred, please try again.';
+                $this->dokumentasi_model->uploadFiles($uploadData);
                 $this->session->set_flashdata('notice','Folder Edited Successfully');
                 redirect($_SERVER["HTTP_REFERER"]);
             }

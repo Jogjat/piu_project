@@ -64,6 +64,6 @@ class Dokumentasi_model extends CI_Model{
 	function uploadFiles($data = array()){
 		$insert = $this->db->insert_batch('piu.documents',$data);
 		// return TRUE;
-		return $insert?true:false;
+		return TRUE;
 	}
 }
