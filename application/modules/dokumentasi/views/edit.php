@@ -4,8 +4,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
         <h4 class="modal-title">Edit</h4>
       </div>
-
-      <form id="folder_form" enctype="multipart/form-data">
+      <form class="form-horizontal" action="<?php echo base_url('dokumentasi/edit')?>" method="post" enctype="multipart/form-data" role="form">
       <div class="modal-body" id="modal-edit">
           <div class="form-group">
            <label class="col-lg-3 control-label">Folder Name:</label>
@@ -30,7 +29,7 @@
       </div>
       <div class="modal-footer">
         <a class="btn btn-secondary" data-dismiss="modal">Close</a>
-        <a id="update" class="btn btn-info">Save</a>
+        <a class="btn btn-info" type="submit">Save</a>
       </div>
       </form>
     </div>

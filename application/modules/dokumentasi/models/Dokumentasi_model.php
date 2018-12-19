@@ -18,41 +18,14 @@ class Dokumentasi_model extends CI_Model{
         return $query;
     }
 
-    public function tambah($data){
+    public function create($data){
        $this->db->insert('piu.folder', $data);
        return TRUE;
     }
 
-
-    // public function edit_dokumentasi($id_folder)
-    // {
-    //    $this->db->where("id_folder", $id_folder);
-    //    $query=$this->db->get("piu.folder");
-    //     return $query->result();
-    // }
-
-    // public function fetch_single_folder($id_folder)
-    // {
-    //    $this->db->where("id_folder", $id_folder);
-    //    $query=$this->db->get("piu.folder");
-    //     return $query->result();
-    // }
-
-    // public function insert_folder($data)
-    // {
-    //    $this->db->insert("folder", $data);
-    // }
-
-    // public function edit_folder($where,$table)
-    // {
-    //    return $this->db->get_where($table, $where);
-    // }
-
-    public function update_folder($id_folder,$data)
-    {
-       $this->db->where("id_folder",$id_folder);
-       $this->db->update("folder", $data);
-       return $data;
+    public function create_subfolder($data){
+       $this->db->insert('piu.folder', $data);
+       return TRUE;
     }
 
     function get_edit($id){
@@ -65,4 +38,32 @@ class Dokumentasi_model extends CI_Model{
     	return $data;
     }
 
+    public function edit($id,$data)
+    {
+       $this->db->where("id_folder",$id);
+       $this->db->update("folder", $data);
+       return $data;
+    }
+
+    public function delete($id)
+    {
+    	$this->db->where("id_folder", $id)->or_where("parent", $id);
+    	$this->db->delete("piu.folder");
+    	return TRUE;
+    }
+
+	// public function insert_file($filename, $title)
+ //    {
+ //        $data = array(
+ //            'filename'      => $filename,
+ //            'title'         => $title
+ //        );
+ //        $this->db->insert('piu.documents', $data);
+ //        return TRUE;
+ //    }
+	function uploadFiles($data = array()){
+		$insert = $this->db->insert_batch('piu.documents',$data);
+		// return TRUE;
+		return $insert?true:false;
+	}
 }
