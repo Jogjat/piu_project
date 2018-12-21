@@ -15,6 +15,8 @@ class User extends MY_Controller
         }
         $this->load->model('user/user_model');
         $this->load->model('user/dt_user_model','dt');
+        $this->load->helper('form_helper');
+        $this->load->helper('url');
         $this->load->helper('modal_helper');
 
         //$this->load->library('form_validation');
@@ -22,6 +24,7 @@ class User extends MY_Controller
     public function index() {
         $data['title']        = 'User';
         $data['user']         = 'active';
+        $data['user'] = $this->user_model->user()->result();
 
         $this->template->main('user/index', $data );
     }
@@ -34,10 +37,7 @@ class User extends MY_Controller
             $sub_array[] = $row->type;
             $sub_array[] = $row->username;
             $sub_array[] = $row->email;
-            $sub_array[] = ajax_modal( 'user/edit/' . $row->id,'Edit', array('warning', 'pencil') ) . ' ' . ajax_modal( 'user/delete/' . $row->id, 'Hapus', array(
-                        'danger',
-                        'trash'
-                    ) );
+            $sub_array[] = ajax_modal( 'user/edit/' . $row->id,'Edit', array('warning', 'pencil') ) . ' ' . ajax_modal( 'modals/delete/' . $row->id, 'Hapus', array('danger', 'trash') ).' '.ajax_modal( 'modals/detail/' . $row->id, 'Detail', array('info', 'info'));
             $data[] = $sub_array;
         }
 
@@ -68,4 +68,46 @@ class User extends MY_Controller
         $this->load->view("user/create");
         }
     }
+    // public function edit(){
+    //     $this->load->model('user_model');
+    //     $id=$this->uri->segment(3);
+    //     $data['user'= $this->'user_model'->user($id)->row();
+    // }
+
+    public function update_user()
+    {
+        $updated_data = array(
+            'type' => $this->input->post('type'),
+            'username' => $this->input->post('username'),
+            'email' => $this->input->post('email'),
+        );
+        $this->user_model->update_user($id, $updated_data);
+        echo 'User Updated';
+    }
+    public function edit($id){
+        // die(var_dump($id));
+        if(count($_POST) > 0){
+            $data = array(
+                'id' => $this->input->post('id'),
+                'type' => $this->input->post('type'),
+                'username' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+                // 'create_date' => $this->input->post('create_date'),
+                // 'parent' => $this->input->post('parent'),
+                // 'id_user' => $this->input->post('id_user')
+            );
+            $this->user_model->edit($data);
+            $this->session->set_flashdata('notice','Folder Edited Successfully');
+            redirect($_SERVER["HTTP_REFERER"]);
+            }
+        else{
+
+            $data = array(
+                'user'=> $this->user_model->get_edit($id)->row() ,
+                'user'=>$this->user_model->user($id)->result()
+            );
+            $this->load->view('user/edit',$data);
+        }
+    }
+
 }

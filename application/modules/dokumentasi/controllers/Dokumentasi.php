@@ -41,7 +41,7 @@ class Dokumentasi extends MY_Controller
     
     public function tambah(){
     //post form tambah folder
-        if(count($_POST) > 0){.
+        if(count($_POST) > 0){
             //die(var_dump("test post"));
             $data = array(
             'id_folder' => $this->input->post('id_folder'),
