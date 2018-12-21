@@ -72,7 +72,9 @@
             <div class="font-size-16"><span class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->first_name?></strong><br>PIU</div>
         </li>
         <?php echo nav_menu('Dashboard','dashboard',isset($dashboard) ? $dashboard : '','fa-dashboard') ?>
+        <?php echo nav_menu('User','user',isset($user) ? $user : '', 'fa-group') ?>
         <?php echo nav_menu('Dokumentasi','dokumentasi',isset($dokumentasi) ? $dokumentasi: '', 'fa-folder') ?>
+        
         <li class="px-nav-box b-t-1 p-a-2">
             <a href="<?php echo base_url('auth/logout')?>" class="btn btn-danger btn-block btn-outline">Sign Out</a>
         </li>
