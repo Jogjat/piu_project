@@ -2,34 +2,38 @@
 <br>
 <div class="row">
     <div class="col-md-12">
-      <a href="<?php echo base_url('dokumentasi/upload'); ?>" id="btnUpload" target="ajax-modal" class="btn btn-primary btn-lg"><span class="fa fa-plus"></span>&nbsp; ADD FILE</a>&nbsp;&nbsp;
-      <a href="<?php echo base_url('dokumentasi/create_subfolder').'/'.$id; ?>" id="btnAdd" target="ajax-modal" class="btn btn-info btn-lg"><span class="fa fa-plus"></span>&nbsp; ADD FOLDER</a><br><br>
+        <a href="<?php echo base_url('dokumentasi/upload') . '/' . $id; ?>" id="btnUpload" target="ajax-modal"
+           class="btn btn-primary btn-lg"><span class="fa fa-plus"></span>&nbsp; TAMBAH DOKUMEN</a>&nbsp;&nbsp;
+        <a href="<?php echo base_url('dokumentasi/create_subfolder') . '/' . $id; ?>" id="btnAdd" target="ajax-modal"
+           class="btn btn-info btn-lg"><span class="fa fa-plus"></span>&nbsp; TAMBAH FOLDER</a><br><br>
     </div>
 </div>
 
-    <table class="table">
-      <thead>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Folder Name</th>
+        <th>Create Date</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($data as $key => $value) { ?>
         <tr>
-          <th>Folder Name</th>
-          <th>Create Date</th>
-          <th>Action</th>
+            <td>
+                <a href="<?php echo base_url(); ?>dokumentasi/subfolder/<?php echo $value->id_folder ?>"><?php echo $value->folder_name ?></a>
+            </td>
+            <td><?php echo $value->create_date ?></td>
+            <td>
+                <center>
+                    <a href="<?php echo base_url(); ?>dokumentasi/edit/<?php echo $value->id_folder ?>" id="btnEdit"
+                       target="ajax-modal" class="btn btn-info">Edit</a>
+                    <a href="<?php echo base_url(); ?>dokumentasi/delete/<?php echo $value->id_folder ?>" id="btnDelete"
+                       target="ajax-modal" class="btn btn-danger">Delete</a>
+                </center>
+            </td>
         </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($data as $key => $value) { ?>
-          <tr>
-            <td>
-              <a href="<?php echo base_url(); ?>dokumentasi/subfolder/<?php echo $value->id_folder ?>"><?php echo $value->folder_name ?></a>
-            </td>
-            <td><?php echo $value->create_date?></td>
-            <td>
-              <center>
-              <a href="<?php echo base_url(); ?>dokumentasi/edit/<?php echo $value->id_folder ?>" id="btnEdit"  target="ajax-modal" class="btn btn-info">Edit</a>
-              <a href="<?php echo base_url(); ?>dokumentasi/delete/<?php echo $value->id_folder ?>" id="btnDelete" target="ajax-modal" class="btn btn-danger">Delete</a>
-              </center>
-            </td>
-          </tr>
-        <?php }?>
-      </tbody>
-    </table>
-  </div>
+    <?php } ?>
+    </tbody>
+</table>
+</div>

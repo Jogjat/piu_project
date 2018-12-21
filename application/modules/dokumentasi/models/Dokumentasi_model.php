@@ -53,7 +53,7 @@ class Dokumentasi_model extends CI_Model{
     }
 
 	function uploadFiles($data){
-		$insert = $this->db->insert_batch($this->tbl_document,$data);
+		$this->db->insert_batch($this->tbl_document,$data);
 		return TRUE;
 	}
 
@@ -64,5 +64,11 @@ class Dokumentasi_model extends CI_Model{
         }else{
             return '<a href="'.base_url('dokumentasi/subfolder').'/'.$data->row()->id_folder.'">'.$data->row()->folder_name.'</a>';
         }
+    }
+
+    function create_dokumen($data){
+        $this->db->insert($this->tbl_document,$data);
+
+        return true;
     }
 }

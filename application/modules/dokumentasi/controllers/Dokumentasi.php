@@ -144,12 +144,49 @@ class Dokumentasi extends MY_Controller
         }
     }
 
-    public function upload()
+    public function upload($id)
     {
-        $this->load->view("dokumentasi/upload");
+        if (count($_POST) > 0) {
+            $config['upload_path'] = BASEPATH . '/../storage/dokumen';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size'] = 100;
+            $config['max_width'] = 1024;
+            $config['max_height'] = 768;
+            $this->load->library('upload', $config);
+
+
+            // save data local storage
+            if (!$this->upload->do_upload('userfile')) {
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->load->view('upload_form', $error);
+            } else {
+                // ke db
+                $data = array(
+                    'doc_name'       => $this->input->post(''),
+                    'id_folder'      => $this->input->post(''),
+                    'upload_date'    => $this->input->post(''),
+                    'id_user'        => $this->input->post(''),
+                    'id_subkegiatan' => $this->input->post(''),
+                );
+                $this->dokumentasi_model->create_dokumen($data);
+
+                $data = array('upload_data' => $this->upload->data());
+
+                $this->load->view('upload_success', $data);
+            }
+
+            $this->session->set_flashdata('notice', 'Berhasil menambah Dokumen Baru');
+            redirect($_SERVER['HTTP_REFERER']);
+        } else {
+            $data = array(
+                'id' => $id
+            );
+            $this->load->view("dokumentasi/upload", $data);
+        }
     }
 
-    public function do_upload()
+    public function do_upload($id)
     {
         $data = array();
 
@@ -166,8 +203,8 @@ class Dokumentasi extends MY_Controller
             $_FILES['file']['size'] = $_FILES['files']['size'][$i];
 
             //Set preference
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'jpeg|jpg|pdf';
+            $config['upload_path'] = BASEPATH . '/../storage/dokumen';
+            $config['allowed_types'] = 'jpeg|jpg|png|pdf';
             $config['max_size'] = 5000; //in kb
 
             //Load upload library
@@ -179,7 +216,8 @@ class Dokumentasi extends MY_Controller
                 // Get data about the file
                 $fileData = $this->upload->data();
                 $uploadData[$i]['doc_name'] = $fileData['file_name'];
-                // $uploadData[$i]['id_folder'] = $fileData['file_name'];
+                $uploadData[$i]['id_folder'] = $id;
+                $uploadData[$i]['id_user'] = $this->ion_auth->user()->row()->id;
             }
         }
 
@@ -189,7 +227,7 @@ class Dokumentasi extends MY_Controller
             $this->session->set_flashdata('notice', 'File Upload Successfully');
             redirect($_SERVER["HTTP_REFERER"]);
         }
-        $this->session->set_flashdata('warning', 'Failed');
+        $this->session->set_flashdata('warning', $this->upload->display_errors());
         redirect($_SERVER["HTTP_REFERER"]);
     }
 }
