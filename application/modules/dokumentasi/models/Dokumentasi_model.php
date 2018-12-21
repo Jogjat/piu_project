@@ -41,7 +41,7 @@ class Dokumentasi_model extends CI_Model{
     public function edit($id,$data)
     {
        $this->db->where("id_folder",$id);
-       $this->db->update("folder", $data);
+       $this->db->update("piu.folder", $data);
        return $data;
     }
 
@@ -52,18 +52,8 @@ class Dokumentasi_model extends CI_Model{
     	return TRUE;
     }
 
-	// public function insert_file($filename, $title)
- //    {
- //        $data = array(
- //            'filename'      => $filename,
- //            'title'         => $title
- //        );
- //        $this->db->insert('piu.documents', $data);
- //        return TRUE;
- //    }
-	function uploadFiles($data = array()){
+	function uploadFiles($data){
 		$insert = $this->db->insert_batch('piu.documents',$data);
-		// return TRUE;
 		return TRUE;
 	}
 }

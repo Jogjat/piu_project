@@ -11,7 +11,7 @@
        <table id="jq-datatables-example" class="table table-striped table-hover">
            <thead>
            <tr>
-               <th>No.</th>
+               <!-- <th>No.</th> -->
                <th>Folder Name</th>
                <th>Create Date</th>
                <th><center>Action</center></th>
@@ -39,5 +39,5 @@
        </table>
    </div>
 </div>
-<?php echo datatable("Dokumentas",'dokumentasi/fetch_data'); ?>
+<?php echo datatable("Dokumentasi",'dokumentasi/fetch_data'); ?>
 

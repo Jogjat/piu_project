@@ -80,13 +80,18 @@ class Dokumentasi extends MY_Controller
         }
     }
 
+    public function get_uri(){
+        $parent = $this->uri->segment(3);
+        return $parent;
+    }
+
     public function create_subfolder(){
         if(count($_POST) > 0){
         $data = array(
             'id_folder' => $this->input->post('id_folder'),
             'folder_name' => $this->input->post('folder_name'),
             'create_date' => $this->input->post('create_date'),
-            'parent' => $this->uri->segment(3),
+            //'parent' => $id,
             'id_user' => $this->input->post('id_user')
         );
         $this->dokumentasi_model->create($data);
@@ -98,15 +103,6 @@ class Dokumentasi extends MY_Controller
         }
     }
 
-    // public function update_folder()
-    // {
-    //     $updated_data = array(
-    //         'folder_name' => $this->input->post('folder_name')
-    //     );
-    //     $this->dokumentasi_model->update_folder($id_folder, $updated_data);
-    //     echo 'Folder Updated';
-    // }
-
     public function edit($id){
         if(count($_POST) > 0){
             $data = array(
@@ -116,7 +112,7 @@ class Dokumentasi extends MY_Controller
                 // 'parent' => $this->input->post('parent'),
                 // 'id_user' => $this->input->post('id_user')
             );
-            $this->dokumentasi_model->edit($data);
+            $this->dokumentasi_model->edit($id,$data);
             $this->session->set_flashdata('notice','Folder Edited Successfully');
             redirect($_SERVER["HTTP_REFERER"]);
             }
@@ -132,7 +128,7 @@ class Dokumentasi extends MY_Controller
     public function delete($id){
         if(count($_POST) > 0 ){
             $this->dokumentasi_model->delete($id);
-            $this->session->set_flashdata('notif','<div class="alert alert-success" role="alert"> Data Berhasil dihapus</div>');
+            $this->session->set_flashdata('notice','Folder Deleted Successfully');
             redirect($_SERVER["HTTP_REFERER"]);
         }
         else{
@@ -173,36 +169,22 @@ class Dokumentasi extends MY_Controller
               $this->upload->initialize($config);
 
               //upload file
-              if($this->upload->do_upload('dokumentasi_model')){
+              if($this->upload->do_upload('file')){
                 // Get data about the file
                 $fileData = $this->upload->data();
                 $uploadData[$i]['doc_name'] = $fileData['file_name'];
-                // $uploadData = $this->upload->data();
-                // $filename = $uploadData['file_name'];
-
-                // Initialize array
-                // $data['filenames'][] = $filename;
+                // $uploadData[$i]['id_folder'] = $fileData['file_name'];
               }
             }
 
             if(!empty($uploadData)){
                 // Insert files data into the database
                 $this->dokumentasi_model->uploadFiles($uploadData);
-                $this->session->set_flashdata('notice','Folder Edited Successfully');
+                $this->session->set_flashdata('notice','File Upload Successfully');
                 redirect($_SERVER["HTTP_REFERER"]);
             }
             $this->session->set_flashdata('warning','Failed');
                 redirect($_SERVER["HTTP_REFERER"]);
           }
-            // if ( ! $this->upload->do_upload('upload_file')){             
-            //     $this->session->set_flashdata('warning','Failed');
-            //     redirect($_SERVER["HTTP_REFERER"]);
-            //   }
-            //   else{
-            //     $data = array('upload_data' => $this->upload->data());
-            //     $this->session->set_flashdata('notice','Folder Edited Successfully');
-            //     redirect($_SERVER["HTTP_REFERER"]);
-            //     }
-        // }
 
     }

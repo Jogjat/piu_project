@@ -6,7 +6,6 @@
     </div>
 </div>
 
-    <?=$this->session->flashdata('notif')?>
     <table class="table">
       <thead>
         <tr><center>
@@ -19,7 +18,7 @@
         <?php foreach ($data as $key => $value) { ?>
           <tr>
             <td>
-              <a href="<?php echo base_url(); ?>dokumentasi/subfolder/<?php echo $value->id_folder ?>"><?php echo $value->folder_name?></a>
+              <a href="<?php echo base_url(); ?>dokumentasi/subfolder/<?php echo $value->id_folder ?>"><?php echo $value->folder_name ?></a>
             </td>
             <td><?php echo $value->create_date?></td>
             <td>
