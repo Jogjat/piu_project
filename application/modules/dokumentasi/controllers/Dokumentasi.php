@@ -111,19 +111,18 @@ class Dokumentasi extends MY_Controller
     {
         if (count($_POST) > 0) {
             $data = array(
-                'id_folder'   => $this->input->post('id_folder'),
                 'folder_name' => $this->input->post('folder_name'),
-                // 'create_date' => $this->input->post('create_date'),
-                // 'parent' => $this->input->post('parent'),
-                // 'id_user' => $this->input->post('id_user')
             );
             $this->dokumentasi_model->edit($id, $data);
-            $this->session->set_flashdata('notice', 'Folder Edited Successfully');
+            foreach ($this->input->post('akses') as $d){
+                $this->dokumentasi_model->create_access_folder($this->input->post('id_folder'),$d);
+            }
+            $this->session->set_flashdata('notice', 'Berhasil mengubah Folder');
             redirect($_SERVER["HTTP_REFERER"]);
         } else {
             $data = array(
                 'dokumentasi' => $this->dokumentasi_model->get_edit($id)->row(),
-                'user'        => $this->dokumentasi_model->get_user()->result()
+                'users'        => $this->dokumentasi_model->get_user()->result()
             );
             $this->load->view('dokumentasi/edit', $data);
         }
@@ -133,11 +132,11 @@ class Dokumentasi extends MY_Controller
     {
         if (count($_POST) > 0) {
             $this->dokumentasi_model->delete($id);
-            $this->session->set_flashdata('notice', 'Folder Deleted Successfully');
+            $this->session->set_flashdata('notice', 'Berhasil Menghapus Folder');
             redirect($_SERVER["HTTP_REFERER"]);
         } else {
             $data = array(
-                'judul' => 'contoh',
+                'judul' => 'Folder '.$this->dokumentasi_model->get_folder($id)->row()->folder_name,
                 'uri'   => '/dokumentasi/delete/' . $id
             );
             $this->load->view('modals/delete', $data);

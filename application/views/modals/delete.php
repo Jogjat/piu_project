@@ -5,7 +5,7 @@
 					aria-hidden="true">&times;</span></button>
 			<h4 class="modal-title">Peringatan</h4>
 		</div>
-		<?php echo form_open( base_url( 'user/delete') ) ?>
+		<?php echo form_open( base_url( $uri) ) ?>
 		<input type="hidden" name="_method" value="DELETE">
 		<div class="modal-body text-center">
 			<span class="fa fa-exclamation-triangle fa-5x" style="color: orange"></span>

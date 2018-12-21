@@ -18,7 +18,7 @@ class DT_Dokumentasi_Model extends Datatable_Model{
         'create_date'
     );
     var $join = array();
-    var $soft_delete = false;
-    var $where = '';
+    var $soft_delete = true;
+    var $where = 'parent=0';
     var $primary_key = 'id_folder';
 }

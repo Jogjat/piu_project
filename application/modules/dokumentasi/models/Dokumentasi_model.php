@@ -4,6 +4,7 @@ class Dokumentasi_model extends CI_Model{
 	var $tbl_folder='folder';
 	var $tbl_user='users';
 	var $tbl_document = 'documents';
+	var $tbl_access_folder = 'access_folder';
 
     public function __construct(){
         parent::__construct();
@@ -41,14 +42,13 @@ class Dokumentasi_model extends CI_Model{
     public function edit($id,$data)
     {
        $this->db->where("id_folder",$id);
-       $this->db->update("piu.folder", $data);
+       $this->db->update($this->tbl_folder, $data);
        return $data;
     }
 
     public function delete($id)
     {
-    	$this->db->where("id_folder", $id)->or_where("parent", $id);
-    	$this->db->delete($this->tbl_folder);
+    	$this->db->delete($this->tbl_folder,"id_folder=".$id);
     	return TRUE;
     }
 
@@ -70,5 +70,34 @@ class Dokumentasi_model extends CI_Model{
         $this->db->insert($this->tbl_document,$data);
 
         return true;
+    }
+
+    function create_access_folder($id_folder,$id_user){
+        $data = array(
+            'id_folder' => $id_folder,
+            'id_user'   => $id_user
+        );
+        $this->db->insert($this->tbl_access_folder,$data);
+
+        return true;
+    }
+
+    function access($id_folder,$id_user){
+        $c = $this->db->where(array(
+            'id_folder' => $id_folder,
+            'id_user'   => $id_user
+        ))->count_all_results($this->tbl_access_folder);
+
+        if ($c > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function get_folder($id){
+        $data = $this->db->where('id_folder',$id)->get($this->tbl_folder);
+
+        return $data;
     }
 }

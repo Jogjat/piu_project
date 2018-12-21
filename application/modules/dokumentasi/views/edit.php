@@ -15,12 +15,12 @@
           </div>
           <br>
           <div class="form-group">
-           <label class="col-lg-3 control-label">Access:</label>
+           <label class="col-lg-3 control-label">Akses:</label>
             <div class="col-lg-8">
               <div class="m-b-2">
-              <select class="form-control select2-example select2-hidden-accessible" multiple="" style="width: 100%" tabindex="-1" aria-hidden="true">
-                <?php foreach ($user as $data): ?>
-                  <option value="<?php echo $data->id_user; ?>"><?php echo $data->username; ?></option>
+              <select name="akses[]" class="form-control select2-example select2-hidden-accessible" multiple="" style="width: 100%" tabindex="-1" aria-hidden="true">
+                <?php foreach ($users as $data): ?>
+                  <option <?php echo $this->dokumentasi_model->access($dokumentasi->id_folder,$data->id) ? "selected" : "" ?> value="<?php echo $data->id; ?>"><?php echo $data->first_name.' '.$data->last_name; ?></option>
                 <?php endforeach; ?>
               </select>
             </div>
