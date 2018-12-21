@@ -16,9 +16,7 @@ class Dokumentasi extends MY_Controller
         }
         $this->load->model('dokumentasi/dokumentasi_model');
         $this->load->model('dokumentasi/dt_dokumentasi_model', 'dt');
-        $this->load->helper('form_helper');
-        $this->load->helper('modal_helper');
-        $this->load->helper('url');
+        $this->load->helper(array('form_helper', 'modal_helper', 'bs_helper', 'url'));
         $this->load->library('upload');
     }
 
@@ -62,7 +60,9 @@ class Dokumentasi extends MY_Controller
         $data = array(
             'title'       => 'Dokumentasi',
             'dokumentasi' => 'active',
-            'data'        => $this->dokumentasi_model->get_subfolder($id)->result()
+            'data'        => $this->dokumentasi_model->get_subfolder($id)->result(),
+            'bc'          => $this->dokumentasi_model->get_bc($id),
+            'id'          => $id
         );
         $this->template->main('dokumentasi/subfolder', $data);
     }
@@ -71,14 +71,12 @@ class Dokumentasi extends MY_Controller
     {
         if (count($_POST) > 0) {
             $data = array(
-                'id_folder'   => $this->input->post('id_folder'),
-                'folder_name' => $this->input->post('folder_name'),
-                'create_date' => $this->input->post('create_date'),
+                'folder_name' => $this->input->post('nama_folder'),
                 'parent'      => 0,
-                'id_user'     => $this->input->post('id_user')
+                'id_user'     => $this->ion_auth->user()->row()->id
             );
             $this->dokumentasi_model->create($data);
-            $this->session->set_flashdata('notice', 'Folder added successfully');
+            $this->session->set_flashdata('notice', 'Berhasil menambah Folder Baru');
             redirect('dokumentasi/index');
         } else {
             $this->load->view("dokumentasi/tambah");
@@ -91,21 +89,21 @@ class Dokumentasi extends MY_Controller
         return $parent;
     }
 
-    public function create_subfolder()
+    public function create_subfolder($id)
     {
         if (count($_POST) > 0) {
             $data = array(
-                'id_folder'   => $this->input->post('id_folder'),
-                'folder_name' => $this->input->post('folder_name'),
-                'create_date' => $this->input->post('create_date'),
-                //'parent' => $id,
-                'id_user'     => $this->input->post('id_user')
+                'folder_name' => $this->input->post('nama_folder'),
+                'parent'      => $id,
+                'id_user'     => $this->ion_auth->user()->row()->id
             );
             $this->dokumentasi_model->create($data);
-            $this->session->set_flashdata('notice', 'Folder added successfully');
+            $this->session->set_flashdata('notice', 'Berhasil menambah Folder Baru');
             redirect($_SERVER["HTTP_REFERER"]);
         } else {
-            $this->load->view("dokumentasi/tambah_subfolder");
+            $data = array('id' => $id);
+
+            $this->load->view("dokumentasi/tambah_subfolder", $data);
         }
     }
 

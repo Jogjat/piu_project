@@ -123,3 +123,11 @@ if ( ! function_exists( 'cancel_button' ) ) {
 		return '<a href="' . base_url( $uri ) . '" class="btn btn-xs btn-default"><span class="fa fa-times"></span>&nbsp; Batal Terbit</a>';
 	}
 }
+
+if (! function_exists('px_validate')){
+    function px_validate($rules = '',$id = 'validation-form'){
+        return "<script>$(function(){
+        $('#".$id."').pxValidate({ignore: '.ignore, .select2-input',focusInvalid: false,rules: {".$rules."}});
+        });</script><script type='text/javascript' src='".base_url('/')."assets/js/jquery-validate/localization/messages_id.js'></script>";
+    }
+}

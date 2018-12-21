@@ -17,6 +17,8 @@ class Dashboard extends MY_Controller
 
     public function index()
     {
+        redirect('dokumentasi');
+
         $data['js_view'] = array('https://maps.googleapis.com/maps/api/js?key=' . $this->config->item("gmaps_api_token") . '&callback=initMap');
         $data['title'] = 'Dashboard';
         $data['dashboard'] = 'active';

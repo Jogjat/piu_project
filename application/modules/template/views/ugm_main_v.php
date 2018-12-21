@@ -74,8 +74,8 @@
             </div>
         </li>
         <?php if ($this->ion_auth->user()->row()->username == 'administrator') { ?>
-            <?php echo nav_menu('Dashboard', 'dashboard', isset($dashboard) ? $dashboard : '', 'fa-dashboard') ?>
-            <?php echo nav_menu('User', 'user', isset($user) ? $user : '', 'fa-group') ?>
+            <?php //echo nav_menu('Dashboard', 'dashboard', isset($dashboard) ? $dashboard : '', 'fa-dashboard') ?>
+            <?php echo nav_menu('Pengguna', 'user', isset($user) ? $user : '', 'fa-group') ?>
             <?php echo nav_menu('Dokumentasi', 'dokumentasi', isset($dokumentasi) ? $dokumentasi : '', 'fa-folder') ?>
 
         <?php } else { ?>

@@ -1,18 +1,19 @@
-<h4 class="m-y-1 font-weight-normal"><i class="fa fa-home"></i>&nbsp;&nbsp;/ Uploads</h4>
+<h4 class="m-y-1 font-weight-normal"><i class="fa fa-home"></i>&nbsp;&nbsp;/ <?php echo $bc; ?></h4>
+<br>
 <div class="row">
-    <div class="col-md-offset-10 col-md-2 ">
-      <a href="<?php echo base_url('dokumentasi/upload'); ?>" id="btnUpload" target="ajax-modal" class="btn btn-primary"><span class="fa fa-plus"></span>&nbsp; ADD FILE</a>
-      <a href="<?php echo base_url('dokumentasi/create_subfolder'); ?>" id="btnAdd" target="ajax-modal" class="btn btn-info"><span class="fa fa-plus"></span>&nbsp; ADD FOLDER</a>
+    <div class="col-md-12">
+      <a href="<?php echo base_url('dokumentasi/upload'); ?>" id="btnUpload" target="ajax-modal" class="btn btn-primary btn-lg"><span class="fa fa-plus"></span>&nbsp; ADD FILE</a>&nbsp;&nbsp;
+      <a href="<?php echo base_url('dokumentasi/create_subfolder').'/'.$id; ?>" id="btnAdd" target="ajax-modal" class="btn btn-info btn-lg"><span class="fa fa-plus"></span>&nbsp; ADD FOLDER</a><br><br>
     </div>
 </div>
 
     <table class="table">
       <thead>
-        <tr><center>
+        <tr>
           <th>Folder Name</th>
           <th>Create Date</th>
-          <th><center>Action</center></th>
-        </tr></center>
+          <th>Action</th>
+        </tr>
       </thead>
       <tbody>
         <?php foreach ($data as $key => $value) { ?>

@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" hidden>
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">

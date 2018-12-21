@@ -19,12 +19,12 @@ class Dokumentasi_model extends CI_Model{
     }
 
     public function create($data){
-       $this->db->insert('piu.folder', $data);
+       $this->db->insert($this->tbl_folder, $data);
        return TRUE;
     }
 
     public function create_subfolder($data){
-       $this->db->insert('piu.folder', $data);
+       $this->db->insert($this->tbl_folder, $data);
        return TRUE;
     }
 
@@ -56,4 +56,13 @@ class Dokumentasi_model extends CI_Model{
 		$insert = $this->db->insert_batch($this->tbl_document,$data);
 		return TRUE;
 	}
+
+	function get_bc($id){
+        $data = $this->db->where('id_folder',$id)->get($this->tbl_folder);
+        if ($data->row()->parent != 0){
+            return $this->get_bc($data->row()->parent) . ' / ' . '<a href="'.base_url('dokumentasi/subfolder').'/'.$data->row()->id_folder.'">'.$data->row()->folder_name.'</a>' ;
+        }else{
+            return '<a href="'.base_url('dokumentasi/subfolder').'/'.$data->row()->id_folder.'">'.$data->row()->folder_name.'</a>';
+        }
+    }
 }
