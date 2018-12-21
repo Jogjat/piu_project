@@ -2,8 +2,8 @@
 
 class Dokumentasi_model extends CI_Model{
 
-	var $tbl_folder='piu.folder';
-	var $tbl_user='piu.users';
+	var $tbl_folder='folder';
+	var $tbl_user='users';
 
     public function __construct(){
         parent::__construct();

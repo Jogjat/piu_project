@@ -3,6 +3,7 @@
 * Class Dokumentasi
 * @property Dokumentasi $dokumentasi
 * @property Dokumentasi_model $dokumentasi_model
+ * @property DT_Dokumentasi_Model $dt
 */
 class Dokumentasi extends MY_Controller
 {
@@ -33,7 +34,7 @@ class Dokumentasi extends MY_Controller
 
         foreach ( $fetch_data as $row ) {
             $sub_array   = array();
-            $sub_array[] = $row->folder_name;
+            $sub_array[] = '<a href="'.base_url('dokumentasi/subfolder').'/'.$row->id_folder.'">'.$row->folder_name.'</a>';
             $sub_array[] = $row->create_date;
             $sub_array[] = ajax_modal( 'dokumentasi/edit/' . $row->id_folder,'Edit', array('warning', 'pencil') ) . ' ' . ajax_modal( 'dokumentasi/delete/' . $row->id_folder, 'Delete', array(
                         'danger',
@@ -49,7 +50,6 @@ class Dokumentasi extends MY_Controller
             'data'            => $data
         );
         echo json_encode( $output );
-
     }
 
 

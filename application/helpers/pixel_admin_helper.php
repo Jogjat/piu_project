@@ -29,7 +29,7 @@ if ( ! function_exists( 'datatable' ) ) {
 	}
 }
 if ( ! function_exists( 'make_query' ) ) {
-	function make_query( $table, $select_column = array(), $search_column = array(), $order_column = array(), $join_table = array() ) {
+	function make_query( $table, $select_column = array(), $search_column = array(), $order_column = array(), $join_table = array() , $pk='id') {
 		$ci =& get_instance();
 		$ci->db->select( $select_column )->from( $table );
 		if ( count( $join_table ) > 0 ) {
@@ -50,7 +50,7 @@ if ( ! function_exists( 'make_query' ) ) {
 			$ci->db->order_by( $order_column[ $_POST['order']['0']['column'] ], $_POST['order']['0']['dir'] );
 		}
 		else {
-			$ci->db->order_by( $table . '.id', 'desc' );
+			$ci->db->order_by( $table . '.'.$pk, 'desc' );
 		}
 
 	}

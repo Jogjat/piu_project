@@ -12,6 +12,7 @@ class Datatable_Model extends CI_Model{
     var $join = array();
     var $soft_delete = true;
     var $where = '';
+    var $primary_key = 'id';
 
     /*
      * restricted to edit
@@ -23,7 +24,7 @@ class Datatable_Model extends CI_Model{
 
     function make_datatables()
     {
-        make_query($this->table,$this->select_column,$this->search_column,$this->order_column,$this->join);
+        make_query($this->table,$this->select_column,$this->search_column,$this->order_column,$this->join,$this->primary_key);
 
         if ($_POST['length'] != -1){
             $this->db->limit($_POST['length'],$_POST['start']);
@@ -41,7 +42,7 @@ class Datatable_Model extends CI_Model{
 
     function get_filtered_data()
     {
-        make_query($this->table,$this->order_column,$this->search_column,$this->order_column,$this->join);
+        make_query($this->table,$this->order_column,$this->search_column,$this->order_column,$this->join,$this->primary_key);
 	    if (!empty($this->where)){
 		    $this->db->where($this->where);
 	    }

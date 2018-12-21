@@ -2,7 +2,7 @@
 
 
 class DT_Dokumentasi_Model extends Datatable_Model{
-    var $table = 'piu.folder';
+    var $table = 'folder';
 
     var $search_column = array(
         'folder_name'
@@ -20,4 +20,5 @@ class DT_Dokumentasi_Model extends Datatable_Model{
     var $join = array();
     var $soft_delete = false;
     var $where = '';
+    var $primary_key = 'id_folder';
 }
