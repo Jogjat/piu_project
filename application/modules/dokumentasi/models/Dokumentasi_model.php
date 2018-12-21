@@ -1,9 +1,9 @@
 <?php
 
 class Dokumentasi_model extends CI_Model{
-
 	var $tbl_folder='folder';
 	var $tbl_user='users';
+	var $tbl_document = 'documents';
 
     public function __construct(){
         parent::__construct();
@@ -48,12 +48,12 @@ class Dokumentasi_model extends CI_Model{
     public function delete($id)
     {
     	$this->db->where("id_folder", $id)->or_where("parent", $id);
-    	$this->db->delete("piu.folder");
+    	$this->db->delete($this->tbl_folder);
     	return TRUE;
     }
 
 	function uploadFiles($data){
-		$insert = $this->db->insert_batch('piu.documents',$data);
+		$insert = $this->db->insert_batch($this->tbl_document,$data);
 		return TRUE;
 	}
 }

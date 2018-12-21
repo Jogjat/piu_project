@@ -14,10 +14,10 @@
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
     <!-- DEMO ONLY: Function for the proper stylesheet loading according to the demo settings -->
     <style type="text/css">
-        #myModelDialog{
+        #myModelDialog {
             z-index: 1100 !important; /*set to something other than 9999*/
         }
-        
+
     </style>
     <script>function _pxDemo_loadStylesheet(a, b, c) {
             var c = c || decodeURIComponent((new RegExp(";\\s*" + encodeURIComponent("px-demo-theme") + "\\s*=\\s*([^;]+)\\s*;", "g").exec(";" + document.cookie + ";") || [])[1] || "default"),
@@ -30,9 +30,9 @@
 
     <!-- DEMO ONLY: Load PixelAdmin core stylesheets -->
     <script>
-        _pxDemo_loadStylesheet('<?php echo base_url( '/' ) ?>assets/dist/css/bootstrap.css', 'px-demo-stylesheet-core');
-        _pxDemo_loadStylesheet('<?php echo base_url( '/' ) ?>assets/dist/css/pixeladmin.css', 'px-demo-stylesheet-bs');
-        _pxDemo_loadStylesheet('<?php echo base_url( '/' ) ?>assets/dist/css/widgets.css', 'px-demo-stylesheet-widgets');
+        _pxDemo_loadStylesheet('<?php echo base_url('/') ?>assets/dist/css/bootstrap.css', 'px-demo-stylesheet-core');
+        _pxDemo_loadStylesheet('<?php echo base_url('/') ?>assets/dist/css/pixeladmin.css', 'px-demo-stylesheet-bs');
+        _pxDemo_loadStylesheet('<?php echo base_url('/') ?>assets/dist/css/widgets.css', 'px-demo-stylesheet-widgets');
     </script>
 
     <!-- DEMO ONLY: Load theme -->
@@ -42,12 +42,12 @@
             _pxDemo_loadStylesheet(a + b + ".min.css", "px-demo-stylesheet-theme", b)
         }
 
-        _pxDemo_loadTheme('<?php echo base_url( '/' ) ?>assets/dist/css/themes/');
+        _pxDemo_loadTheme('<?php echo base_url('/') ?>assets/dist/css/themes/');
     </script>
 
     <!-- Demo assets -->
-    <script>_pxDemo_loadStylesheet('<?php echo base_url( '/' ) ?>assets/dist/demo/demo.css');</script>
-    <script src="<?php echo base_url( '/' ) ?>assets/dist/demo/demo.js"></script>
+    <script>_pxDemo_loadStylesheet('<?php echo base_url('/') ?>assets/dist/demo/demo.css');</script>
+    <script src="<?php echo base_url('/') ?>assets/dist/demo/demo.js"></script>
     <!-- / Demo assets -->
 
     <!-- holder.js -->
@@ -69,14 +69,22 @@
             <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <img src="<?php echo base_url('/') ?>assets/images/user.jpg" alt="" class="pull-xs-left m-r-2 border-round"
                  style="width: 54px; height: 54px;">
-            <div class="font-size-16"><span class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->first_name?></strong><br>PIU</div>
+            <div class="font-size-16"><span
+                        class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->username ?></strong><br>PIU
+            </div>
         </li>
-        <?php echo nav_menu('Dashboard','dashboard',isset($dashboard) ? $dashboard : '','fa-dashboard') ?>
-        <?php echo nav_menu('User','user',isset($user) ? $user : '', 'fa-group') ?>
-        <?php echo nav_menu('Dokumentasi','dokumentasi',isset($dokumentasi) ? $dokumentasi: '', 'fa-folder') ?>
-        
+        <?php if ($this->ion_auth->user()->row()->username == 'administrator') { ?>
+            <?php echo nav_menu('Dashboard', 'dashboard', isset($dashboard) ? $dashboard : '', 'fa-dashboard') ?>
+            <?php echo nav_menu('User', 'user', isset($user) ? $user : '', 'fa-group') ?>
+            <?php echo nav_menu('Dokumentasi', 'dokumentasi', isset($dokumentasi) ? $dokumentasi : '', 'fa-folder') ?>
+
+        <?php } else { ?>
+            <?php echo nav_menu('Dokumentasi', 'dokumentasi', isset($dokumentasi) ? $dokumentasi : '', 'fa-folder') ?>
+            <?php echo nav_menu('Progress Report', 'progress_report', isset($progress_report) ? $progress_report : '', 'fa-table') ?>
+            <?php echo nav_menu('Logbook', 'logbook', isset($logbook) ? $logbook : '', 'fa-clipboard') ?>
+        <?php } ?>
         <li class="px-nav-box b-t-1 p-a-2">
-            <a href="<?php echo base_url('auth/logout')?>" class="btn btn-danger btn-block btn-outline">Sign Out</a>
+            <a href="<?php echo base_url('auth/logout') ?>" class="btn btn-danger btn-block btn-outline">Sign Out</a>
         </li>
     </ul>
 </nav>
@@ -84,7 +92,8 @@
 <nav class="navbar px-navbar">
     <!-- Header -->
     <div class="navbar-header">
-        <a class="navbar-brand px-demo-brand" href="<?php echo base_url('/') ?>"><span class="px-demo-logo bg-primary"><span
+        <a class="navbar-brand px-demo-brand" href="<?php echo base_url('/') ?>"><span
+                    class="px-demo-logo bg-primary"><span
                         class="px-demo-logo-1"></span><span class="px-demo-logo-2"></span><span
                         class="px-demo-logo-3"></span><span class="px-demo-logo-4"></span><span
                         class="px-demo-logo-5"></span><span class="px-demo-logo-6"></span><span
@@ -104,13 +113,16 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">
                     <img src="<?php echo base_url('/') ?>assets/images/user.jpg" alt="" class="px-navbar-image">
-                    <span class="hidden-md"><?php echo $this->ion_auth->user()->row()->first_name?></span>
+                    <span class="hidden-md"><?php echo $this->ion_auth->user()->row()->first_name ?></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo site_url('auth/edit_user/').$this->ion_auth->row()->id; ?>"><i class="dropdown-icon fa fa-user"></i>&nbsp; Profile</a></li>
-                    <li><a href="<?php echo base_url() . 'konfigurasi'; ?>"><i class="dropdown-icon fa fa-cog"></i>&nbsp;&nbsp;Settings</a></li>
+                    <li><a href="<?php echo site_url('auth/edit_user/') . $this->ion_auth->row()->id; ?>"><i
+                                    class="dropdown-icon fa fa-user"></i>&nbsp; Profile</a></li>
+                    <li><a href="<?php echo base_url() . 'konfigurasi'; ?>"><i class="dropdown-icon fa fa-cog"></i>&nbsp;&nbsp;Settings</a>
+                    </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url('auth/logout') ?>"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a>
+                    <li><a href="<?php echo base_url('auth/logout') ?>"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log
+                            Out</a>
                     </li>
                 </ul>
             </li>
@@ -121,10 +133,12 @@
 
 <div class="px-content">
     <div class="page-header">
-        <h1><?php if (isset($title)){echo $title;} ?></h1>
+        <h1><?php if (isset($title)) {
+                echo $title;
+            } ?></h1>
     </div>
 
-	<?php $this->load->view($content_view); ?>
+    <?php $this->load->view($content_view); ?>
 </div>
 
 
@@ -132,7 +146,7 @@
     <hr class="page-wide-block">
     <span class="text-muted">Copyright © <?php echo date('Y') ?> Universitas Gadjah Mada. All rights reserved.</span>
 </footer>
-<div class="modal fade" id="myModelDialog"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="myModelDialog" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <!-- Initialize demo sidebar on page load -->
 <script>
@@ -153,19 +167,21 @@
 <![endif]-->
 
 
-<script src="<?php echo base_url( '/' ) ?>assets/dist/js/bootstrap.js"></script>
-<script src="<?php echo base_url( '/' ) ?>assets/dist/js/pixeladmin.js"></script>
+<script src="<?php echo base_url('/') ?>assets/dist/js/bootstrap.js"></script>
+<script src="<?php echo base_url('/') ?>assets/dist/js/pixeladmin.js"></script>
 <script src="<?php echo base_url(); ?>assets/admin_lte/plugins/pace/pace.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/dialog.js" type="text/javascript"></script>
 
 <?php
-if(current_url() == base_url('dashboard') || current_url() == base_url('dashboard/index')){
+if (current_url() == base_url('dashboard') || current_url() == base_url('dashboard/index')) {
     if (isset($js_view)) {
-        foreach ( $js_view as $data ) {?>
+        foreach ($js_view as $data) { ?>
             <script src="<?php echo $data; ?>" type="text/javascript"></script>
         <?php }
     }
-    if (isset($js)){$this->load->view($js);}
+    if (isset($js)) {
+        $this->load->view($js);
+    }
 }
 ?>
 
@@ -194,16 +210,14 @@ if(current_url() == base_url('dashboard') || current_url() == base_url('dashboar
         pxInit[i].call(null);
     }
     <?php if ($this->session->flashdata('notice') != ''){ ?>
-    $.growl.notice({ message: "<?php echo $this->session->flashdata('notice');?>" });
+    $.growl.notice({message: "<?php echo $this->session->flashdata('notice');?>"});
     <?php } ?>
     <?php if ($this->session->flashdata('error') != ''){ ?>
-    $.growl.error({ message: "<?php echo $this->session->flashdata('error');?>" });
+    $.growl.error({message: "<?php echo $this->session->flashdata('error');?>"});
     <?php } ?>
     <?php if ($this->session->flashdata('warning') != ''){ ?>
-    $.growl.warning({ message: "<?php echo $this->session->flashdata('warning');?>" });
+    $.growl.warning({message: "<?php echo $this->session->flashdata('warning');?>"});
     <?php } ?>
 </script>
-
-
 </body>
 </html>

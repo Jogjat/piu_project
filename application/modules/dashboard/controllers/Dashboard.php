@@ -9,7 +9,9 @@ class Dashboard extends MY_Controller
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login');
         }
-
+        if($this->ion_auth->user()->row()->username!='administrator'){
+            redirect('dokumentasi/index');
+        }
         $this->load->model('dashboard_model');
     }
 

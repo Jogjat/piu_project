@@ -1,47 +1,24 @@
-<div class="row">
-    <div class="col-md-offset-10 col-md-2 ">
-      <a href="<?php echo base_url(); ?>user/tambah" id="btnAdd" target="ajax-modal" class="btn btn-info"></span>&nbsp; ADD USER</a>
+<a href="<?php echo site_url('user/create') ?>" target="ajax-modal" class="btn btn-primary btn-lg"><span class="fa fa-plus"></span>&nbsp; Tambah</a>&nbsp;&nbsp;
+<br>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1 class="panel-title">User</h1>
     </div>
-</div>
-    <?=$this->session->flashdata('notif')?>
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Username</th>
-          <th>Role</th>
-          <th><center>Action</center></th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-      if($fetch_data->num_rows() > 0)
-      {
-        foreach($fetch_data->result() as $data)
-        {
-          $no=0;
-      ?>
-        <tr>
-          <td><?php echo ++$no; ?></td>
-          <td><?php echo $data->username; ?></td>
-          <td><?php echo $data->type; ?></td>
-          <td><center>
-            <a href="<?php echo base_url(); ?>user/edit/<?php echo $data->id_user ?>" id="btnEdit" target="ajax-modal" class="btn btn-info">Edit</a>
-            <a class="btn btn-danger">Delete</a>
-          </center>
-          </td>
-        </tr>
-        <?php }
-      }
-        else{
-    ?>
-       <tr>
-          <td colspan="4">No Folder Found</td>
-       </tr>
-    <?php
-    }
-    ?>
-      </tbody>
-    </table>
-  </div>
+   <div class="panel-body">
+       <table id="jq-datatables-example" class="table table-striped table-hover">
+           <thead>
+           <tr>
+               <th>Type</th>
+               <th>Username</th>
+               <th>Email</th>
+               <th>Opsi</th>
+           </tr>
+           </thead>
+           <tbody>
 
+           </tbody>
+       </table>
+   </div>
+</div>
+<?php echo datatable("User",'user/fetch_data'); ?>
