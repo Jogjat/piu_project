@@ -73,7 +73,7 @@
                         class="font-weight-light"></span><strong><?php echo $this->ion_auth->user()->row()->username ?></strong><br>PIU
             </div>
         </li>
-        <?php if ($this->ion_auth->user()->row()->username == 'administrator') { ?>
+        <?php if ($this->ion_auth->user()->row()->type == 'admin') { ?>
             <?php //echo nav_menu('Dashboard', 'dashboard', isset($dashboard) ? $dashboard : '', 'fa-dashboard') ?>
             <?php echo nav_menu('Pengguna', 'user', isset($user) ? $user : '', 'fa-group') ?>
             <?php echo nav_menu('Dokumentasi', 'dokumentasi', isset($dokumentasi) ? $dokumentasi : '', 'fa-folder') ?>
