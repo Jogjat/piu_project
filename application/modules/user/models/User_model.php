@@ -1,7 +1,7 @@
 <?php
 class User_model extends CI_Model{
 	
-    var $tbl_user = 'piu.users';
+    var $tbl_user = 'users';
 
     public function __construct(){
         parent::__construct();
@@ -12,7 +12,7 @@ class User_model extends CI_Model{
     }
 
     public function create($data){
-       $this->db->insert('users', $data);
+       $this->db->insert('tbl_user', $data);
        return TRUE;
     }
     public function get_edit($id){
@@ -27,7 +27,7 @@ class User_model extends CI_Model{
     public function edit($id,$data)
     {
        $this->db->where("id",$id);
-       $this->db->update("user", $data);
+       $this->db->update("tbl_user", $data);
        return $data;
     }
 

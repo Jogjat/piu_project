@@ -2,7 +2,7 @@
 
 
 class DT_User_Model extends Datatable_Model{
-	var $table = 'piu.users';
+	var $table = 'users';
     var $search_column = array(
     	'type',
     	'username',

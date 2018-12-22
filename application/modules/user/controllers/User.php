@@ -85,7 +85,7 @@ class User extends MY_Controller
         echo 'User Updated';
     }
     public function edit($id){
-        // die(var_dump($id));
+       die(var_dump($id));
         if(count($_POST) > 0){
             $data = array(
                 'id' => $this->input->post('id'),
