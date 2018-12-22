@@ -15,6 +15,7 @@ class User_model extends CI_Model{
 
     public function create($data){
        $this->db->insert($this->tbl_user, $data);
+
        return TRUE;
     }
     public function get_edit($id){
@@ -29,7 +30,9 @@ class User_model extends CI_Model{
     public function edit($id,$data)
     {
        $this->db->where("id",$id);
+
        $this->db->update($this->tbl_user, $data);
+
        return $data;
     }
 }

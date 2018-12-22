@@ -91,6 +91,7 @@ class User extends MY_Controller
         echo 'User Updated';
     }
 
+
     public function edit($id)
     {
         // die(var_dump($id));
