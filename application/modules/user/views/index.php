@@ -9,9 +9,12 @@
        <table id="jq-datatables-example" class="table table-striped table-hover">
            <thead>
            <tr>
-               <th>Type</th>
-               <th>Username</th>
+               <th>Tipe</th>
+               <th>Nama Pengguna</th>
+               <th>Nama Depan</th>
+               <th>Nama Belakang</th>
                <th>Email</th>
+               <th>Nomor Telepon</th>
                <th>Opsi</th>
            </tr>
            </thead>

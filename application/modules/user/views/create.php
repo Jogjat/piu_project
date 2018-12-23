@@ -24,8 +24,13 @@
                                 ?>
                             </select>
                         </div>
-                        <?php echo bs_input("Nama Pengguna"); ?>
+                        <?php echo bs_input("Nama Pengguna", "required", null, "username"); ?>
+                        <?php echo bs_input("Nama depan", "required", null, "first_name"); ?>
+                        <?php echo bs_input("Nama Belakang", "required", null, "last_name"); ?>
                         <?php echo bs_input("Email", "required", null, "email"); ?>
+                        <?php echo bs_input("Nomor Telepon", "required", null, "phone"); ?>
+                        <?php echo bs_input("Kata Sandi", "required", null, "password"); ?>
+                        <?php echo bs_input("Konfirmasi Kata Sandi", "required", null, "password"); ?>                      
                     </div>
                 </div>
             </div>
@@ -34,5 +39,6 @@
             </div>
         </form>
         <?php echo px_validate()?>
+        
     </div>
 </div>

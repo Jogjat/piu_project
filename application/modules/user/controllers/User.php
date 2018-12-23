@@ -14,7 +14,7 @@ class User extends MY_Controller
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login');
         }
-        if ($this->ion_auth->user()->row()->type == 'admin'){
+        if ($this->ion_auth->user()->row()->type != 'admin'){
             redirect('auth/login');
         }
         $this->load->model('user/user_model');
@@ -41,8 +41,11 @@ class User extends MY_Controller
             $sub_array = array();
             $sub_array[] = $row->type;
             $sub_array[] = $row->username;
+            $sub_array[] = $row->first_name;
+            $sub_array[] = $row->last_name;
             $sub_array[] = $row->email;
-            $sub_array[] = ajax_modal('user/edit/' . $row->id, 'Edit', array('warning', 'pencil')) . ' ' . ajax_modal('modals/delete/' . $row->id, 'Hapus', array('danger', 'trash')) . ' ' . ajax_modal('modals/detail/' . $row->id, 'Detail', array('info', 'info'));
+            $sub_array[] = $row->phone;
+            $sub_array[] = ajax_modal('user/edit/' . $row->id, 'Edit', array('warning', 'pencil')) . ' ' . ajax_modal('user/delete/' . $row->id, 'Hapus', array('danger', 'trash')) . ' ' . ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info'));
             $data[] = $sub_array;
         }
 
@@ -60,11 +63,14 @@ class User extends MY_Controller
     {
         //post form tambah folder
         if (count($_POST) > 0) {
-            //die(var_dump("test post"));
             $data = array(
-                'type'     => $this->input->post('type'),
-                'username' => $this->input->post('username'),
+                'type'     => $this->input->post('tipe'),
+                'username' => $this->input->post('nama_pengguna'),
+                'first_name' => $this->input->post('nama_depan'),
+                'last_name' => $this->input->post('nama_belakang'),
                 'email'    => $this->input->post('email'),
+                'phone' => $this->input->post('nomor_telepon'),
+                'password' => $this->input->post('kata_sandi')
             );
             $this->user_model->create($data);
             $this->session->set_flashdata('notice', 'Data berhasil ditambahkan');
@@ -94,7 +100,7 @@ class User extends MY_Controller
 
     public function edit($id)
     {
-        // die(var_dump($id));
+
         if (count($_POST) > 0) {
             $data = array(
                 'id'       => $this->input->post('id'),
@@ -109,12 +115,14 @@ class User extends MY_Controller
             $this->session->set_flashdata('notice', 'Folder Edited Successfully');
             redirect($_SERVER["HTTP_REFERER"]);
         } else {
-
+        
             $data = array(
                 'user'  => $this->user_model->get_edit($id)->row(),
-                'users' => $this->user_model->user($id)->result()
+                'users' => $this->user_model->users($id)->result()
             );
             $this->load->view('user/edit', $data);
         }
     }
+
+
 }

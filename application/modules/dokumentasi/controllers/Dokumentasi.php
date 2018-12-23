@@ -14,7 +14,7 @@ class Dokumentasi extends MY_Controller
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login');
         }
-        if ($this->ion_auth->user()->row()->type == 'admin'){
+        if ($this->ion_auth->user()->row()->type != 'admin'){
             redirect('auth/login');
         }
         $this->load->model('dokumentasi/dokumentasi_model');
