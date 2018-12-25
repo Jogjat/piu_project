@@ -15,7 +15,7 @@
                             <label>Tipe</label>
                             <select name="tipe" class="form-control">
                                 <?php
-                                $user = array("admin", "non admin");
+                                $user = array("admin", "bukan admin");
                                 foreach ($user as $data) {
                                     ?>
                                     <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
@@ -59,7 +59,7 @@
 <script type="text/javascript">
 $(function() {
       $('.select2-example').select2({
-        placeholder: 'Select folder',
+        placeholder: 'Pilih folder',
         dropdownParent: $('#myModelDialog')
       });
     });

@@ -123,6 +123,9 @@ class User extends MY_Controller
             $this->load->view('user/edit', $data);
         }
     }
+    public function detail($id) {
 
+            $this->load->view('user/detail');
+    }
 
 }

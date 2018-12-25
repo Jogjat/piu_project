@@ -38,7 +38,7 @@ class User_model extends CI_Model{
 
        return $data;
     }
-        function access($id_user,$id_folder){
+    public function access($id_user,$id_folder){
         $c = $this->db->where(array(
             'id_user'   => $id_user,            
             'id_folder' => $id_folder
