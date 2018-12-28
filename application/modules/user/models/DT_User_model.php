@@ -16,7 +16,8 @@ class DT_User_Model extends Datatable_Model{
         'first_name',
         'last_name',
     	'email',
-        'phone');
+        'phone',
+        'status');
     var $order_column = array(
         'id',
     	'type',

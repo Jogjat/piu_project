@@ -45,7 +45,9 @@ class User extends MY_Controller
             $sub_array[] = $row->last_name;
             $sub_array[] = $row->email;
             $sub_array[] = $row->phone;
-            $sub_array[] = ajax_modal('user/edit/' . $row->id, 'Edit', array('warning', 'pencil')) . ' ' . ajax_modal('user/delete/' . $row->id, 'Hapus', array('danger', 'trash')) . ' ' . ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info'));
+            $sub_array[] = $row->status;
+            $sub_array[] = ajax_modal('user/edit/' . $row->id, 'Edit', array('warning', 'pencil')) . ' ' . ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info')). ' ' . ajax_modal('user/active/' . $row->id, 'Aktif', array('success', '')). ' ' . ajax_modal('user/non_active/' . $row->id, 'Tidak aktif', array('danger', ''));
+
             $data[] = $sub_array;
         }
 
@@ -127,5 +129,12 @@ class User extends MY_Controller
 
             $this->load->view('user/detail');
     }
+    public function active($id) {
 
+            $this->load->view('user/active');
+    }
+      public function non_active($id) {
+
+            $this->load->view('user/non_active');
+    }
 }

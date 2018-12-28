@@ -15,6 +15,7 @@
                <th>Nama Belakang</th>
                <th>Email</th>
                <th>Nomor Telepon</th>
+               <th>Status</th>
                <th>Opsi</th>
            </tr>
            </thead>
