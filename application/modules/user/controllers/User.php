@@ -26,8 +26,9 @@ class User extends MY_Controller
 
     public function index()
     {
-        $data['title'] = 'User';
+        $data['title'] = 'Pengguna';
         $data['user'] = 'active';
+        $data['users'] = $this->user_model->user()->result();
 
         $this->template->main('user/index', $data);
     }
@@ -78,56 +79,48 @@ class User extends MY_Controller
             $this->session->set_flashdata('notice', 'Data berhasil ditambahkan');
             redirect('user/index');
         } //klik button tambah folder
-        else {
-            $this->load->view("user/create");
+        if($this->input->is_ajax_request()){
+            $this->load->view('user/create');
+        }else{
+            $this->template->main('user/create');
         }
     }
-    // public function edit(){
-    //     $this->load->model('user_model');
-    //     $id=$this->uri->segment(3);
-    //     $data['user'= $this->'user_model'->user($id)->row();
-    // }
-
-    public function update_user($id)
-    {
-        $updated_data = array(
-            'type'     => $this->input->post('type'),
-            'username' => $this->input->post('username'),
-            'email'    => $this->input->post('email'),
-        );
-        $this->user_model->update_user($id, $updated_data);
-        echo 'User Updated';
-    }
-
-
     public function edit($id)
     {
 
         if (count($_POST) > 0) {
+
             $data = array(
-                'id'       => $this->input->post('id'),
-                'type'     => $this->input->post('type'),
-                'username' => $this->input->post('username'),
+                'type'     => $this->input->post('tipe'),
+                'username' => $this->input->post('nama_pengguna'),
+                'first_name' => $this->input->post('nama_depan'),
+                'last_name' => $this->input->post('nama_belakang'),
                 'email'    => $this->input->post('email'),
-                // 'create_date' => $this->input->post('create_date'),
-                // 'parent' => $this->input->post('parent'),
-                // 'id_user' => $this->input->post('id_user')
+                'phone' => $this->input->post('nomor_telepon'),
+                'password' => $this->input->post('kata_sandi')
             );
-            $this->user_model->edit($data);
-            $this->session->set_flashdata('notice', 'Folder Edited Successfully');
+            $this->user_model->edit($id, $data);
+            foreach ($this->input->post('akses') as $d){
+                $this->user_model->create_access_folder($this->input->post('id'),$d);
+            }
+            $this->session->set_flashdata('notice', 'Berhasil mengubah data pengguna');
             redirect($_SERVER["HTTP_REFERER"]);
         } else {
         
             $data = array(
-                'user'  => $this->user_model->get_edit($id)->row(),
-                'users' => $this->user_model->users($id)->result()
+                'users'  => $this->user_model->get_edit($id)->row(),
+                'folder' => $this->user_model->get_folder($id)->result()
             );
-            $this->load->view('user/edit', $data);
+            if($this->input->is_ajax_request()){
+                $this->load->view('user/edit', $data);
+            }else{
+                $this->template->main('user/edit', $data);
+            }
         }
     }
     public function detail($id) {
-
             $this->load->view('user/detail');
+
     }
     public function active($id) {
 

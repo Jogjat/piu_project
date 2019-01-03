@@ -38,6 +38,11 @@ class Dokumentasi_model extends CI_Model{
     	$data=$this->db->select('*')->from($this->tbl_user)->get();
     	return $data;
     }
+    function get_folder($id){
+        $data = $this->db->where('id_folder',$id)->get($this->tbl_folder);
+
+        return $data;
+    }
 
     public function edit($id,$data)
     {
@@ -95,9 +100,5 @@ class Dokumentasi_model extends CI_Model{
         }
     }
 
-    function get_folder($id){
-        $data = $this->db->where('id_folder',$id)->get($this->tbl_folder);
-
-        return $data;
-    }
+    
 }

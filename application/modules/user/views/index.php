@@ -1,4 +1,4 @@
-<a href="<?php echo site_url('user/create') ?>" target="ajax-modal" class="btn btn-primary btn-lg"><span class="fa fa-plus"></span>&nbsp; Tambah</a>&nbsp;&nbsp;
+<a href="<?php echo site_url('user/create') ?>" target="ajax-modal" class="btn btn-primary btn-lg"><span class="fa fa-plus"></span>&nbsp; Tambah Pengguna</a>&nbsp;&nbsp;
 <br>
 <br>
 <div class="panel panel-default">

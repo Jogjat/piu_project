@@ -11,9 +11,11 @@
             <div class="modal-body">
             <div class="form-group">
                 <div class="row">
-                        <label class="col-lg-3 control-label">Daftar akses folder:</label>
+                    <label class="col-lg-3 control-label">Daftar akses folder: </label>
+                
                 </div>
             </div>
-        </form>        
+        </div>
+        </form>      
     </div>
 </div>
