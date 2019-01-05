@@ -119,7 +119,12 @@ class User extends MY_Controller
         }
     }
     public function detail($id) {
-            $this->load->view('user/detail');
+        $this->load->model("user_model");
+        
+        $data = array();
+        $data["userakses"] = $this->user_model->get_akses($id);
+        
+        $this->load->view("user/detail", $data);
 
     }
     public function active($id) {

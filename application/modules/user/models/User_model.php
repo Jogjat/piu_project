@@ -66,13 +66,15 @@ class User_model extends CI_Model{
             return false;
         }
     }
-    public function detail($id,$data)
+    public function get_akses($id)
     { 
-        $data = $this->db->where('tbl_access_folder', array(
-            'id_user'   => $id_user,            
-            'id_folder' => $id_folder
-        ))->get();
-       return $data;
+        $this->db->where("id", $id);
+        $this->db->join("access_folder", "id = id_user");
+        $this->db->join("folder", "folder.id_folder = access_folder.id_folder");
+        
+        $getdata = $this->db->get("users")->result();
+        
+        return $getdata;
     }
 
 

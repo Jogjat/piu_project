@@ -8,7 +8,7 @@
         </div>
         <form class="form-horizontal" action="<?php echo base_url(); ?>user/edit/<?php echo $users->id ?>" method="post"
               role="form" id="validation-form">
-            <div class="modal-body" id="moda-edit">
+            <div class="modal-body" id="modal-edit">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="form-group">
@@ -24,37 +24,13 @@
                                 ?>
                             </select>
                         </div>
-                         <div class="form-group">
-                            <label>Nama Pengguna</label>
-                            <div>
-                                <input class="form-control" type="hidden" name="id" id="id" value="<?php echo $users->id; ?>">
-                                <input class="form-control" type="text" name="nama_pengguna" id="username" value="<?php echo $users->username; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama Depan</label>
-                            <div>
-                                <input class="form-control" type="text" name="nama_depan" id="first_name" value="<?php echo $users->first_name; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama Belakang</label>
-                            <div>
-                                <input class="form-control" type="text" name="nama_belakang" id="last_name" value="<?php echo $users->last_name; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <div>
-                                <input class="form-control" type="text" name="email" id="email" value="<?php echo $users->email; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Nomor Telepon</label>
-                            <div>
-                                <input class="form-control" type="text" name="nomor_telepon" id="phone" value="<?php echo $users->phone; ?>">
-                            </div>
-                        </div>
+                        <?php echo bs_input("Nama Pengguna", "required", $users->username, $users->id, "username"); ?>
+                         <?php echo bs_input("Nama depan", "required", $users->first_name, $users->id, "first_name"); ?>
+                        <?php echo bs_input("Nama Belakang", "required", $users->last_name, $users->id, "last_name"); ?>
+                        <?php echo bs_input("Email", "required", $users->email, $users->id, "email"); ?>
+                        <?php echo bs_input("Nomor Telepon", "required", $users->phone, $users->id, "phone"); ?>
+                        <?php echo bs_input("Kata Sandi", "required", $users->password, $users->id, "password"); ?>
+                        <?php echo bs_input("Konfirmasi Kata Sandi", "required", $users->password, $users->id, "password"); ?>  
                                      
                     </div>  
                     <div class="form-group">
