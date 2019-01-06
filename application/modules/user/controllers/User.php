@@ -123,8 +123,11 @@ class User extends MY_Controller
         
         $data = array();
         $data["userakses"] = $this->user_model->get_akses($id);
-        
-        $this->load->view("user/detail", $data);
+        if($this->input->is_ajax_request()){
+            $this->load->view('user/detail', $data);
+        }else{
+            $this->template->main('user/detail', $data);
+        }
 
     }
     public function active($id) {
