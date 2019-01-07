@@ -14,8 +14,7 @@
                         <div class="form-group">
                             <label>Tipe</label>
                             <select name="tipe" class="form-control">
-                                <?php
-                                $user = array("admin", "bukan admin");
+                                <?php $user = array("admin", "pegawai");
                                 foreach ($user as $data) {
                                     ?>
                                     <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
@@ -29,9 +28,21 @@
                         <?php echo bs_input("Nama Belakang", "required", $users->last_name, $users->id, "last_name"); ?>
                         <?php echo bs_input("Email", "required", $users->email, $users->id, "email"); ?>
                         <?php echo bs_input("Nomor Telepon", "required", $users->phone, $users->id, "phone"); ?>
-                        <?php echo bs_input("Kata Sandi", "required", $users->password, $users->id, "password"); ?>
-                        <?php echo bs_input("Konfirmasi Kata Sandi", "required", $users->password, $users->id, "password"); ?>  
-                                     
+                       <?php echo bs_input("Kata Sandi", "required", $users->password, $users->id, "password"); ?>
+                        <?php echo bs_input("Konfirmasi Kata Sandi", "required", $users->password,$users->id, "password"); ?>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" class="form-control">
+                                <?php $user = array("aktif", "tidak aktif");
+                                foreach ($user as $data) {
+                                    ?>
+                                    <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>             
                     </div>  
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Akses:</label>

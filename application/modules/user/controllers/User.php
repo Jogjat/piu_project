@@ -17,8 +17,11 @@ class User extends MY_Controller
         if ($this->ion_auth->user()->row()->type != 'admin'){
             redirect('auth/login');
         }
+        $this->load->library( array( 'ion_auth', 'form_validation' ) );
+        $this->form_validation->set_error_delimiters( $this->config->item( 'error_start_delimiter', 'ion_auth' ), $this->config->item( 'error_end_delimiter', 'ion_auth' ) );
         $this->load->model('user/user_model');
         $this->load->model('user/dt_user_model', 'dt');
+        $this->load->model( 'auth/ion_auth_model', 'ion_auth_model' );
         $this->load->helper(array('form_helper','url','modal_helper','bs_helper'));
 
         //$this->load->library('form_validation');
@@ -47,7 +50,7 @@ class User extends MY_Controller
             $sub_array[] = $row->email;
             $sub_array[] = $row->phone;
             $sub_array[] = $row->status;
-            $sub_array[] = ajax_modal('user/edit/' . $row->id, 'Edit', array('warning', 'pencil')) . ' ' . ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info')). ' ' . ajax_modal('user/active/' . $row->id, 'Aktif', array('success', '')). ' ' . ajax_modal('user/non_active/' . $row->id, 'Tidak aktif', array('danger', ''));
+            $sub_array[] = ajax_modal('user/edit/' . $row->id, 'Ubah', array('warning', 'pencil')) . ' ' . ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info')). ' ' . ajax_modal('user/active/' . $row->id, 'Aktif', array('success', '')). ' ' . ajax_modal('user/non_active/' . $row->id, 'Tidak aktif', array('danger', ''));
 
             $data[] = $sub_array;
         }
@@ -73,7 +76,8 @@ class User extends MY_Controller
                 'last_name' => $this->input->post('nama_belakang'),
                 'email'    => $this->input->post('email'),
                 'phone' => $this->input->post('nomor_telepon'),
-                'password' => $this->input->post('kata_sandi')
+                'password' => password_hash( $this->input->post( 'kata_sandi' ), PASSWORD_BCRYPT ),
+                'status' => $this->input->post('status')
             );
             $this->user_model->create($data);
             $this->session->set_flashdata('notice', 'Data berhasil ditambahkan');
@@ -97,7 +101,9 @@ class User extends MY_Controller
                 'last_name' => $this->input->post('nama_belakang'),
                 'email'    => $this->input->post('email'),
                 'phone' => $this->input->post('nomor_telepon'),
-                'password' => $this->input->post('kata_sandi')
+                'password' => password_hash( $this->input->post( 'kata_sandi' ), PASSWORD_BCRYPT ),
+                'status' => $this->input->post('status')
+
             );
             $this->user_model->edit($id, $data);
             foreach ($this->input->post('akses') as $d){
@@ -131,11 +137,16 @@ class User extends MY_Controller
 
     }
     public function active($id) {
+        $this->load->model("user_model");
 
-            $this->load->view('user/active');
+        $active = $this->input->get("active");
+        if($active == 1){
+        $this->user_model->activate($id);
+        $this->load->view('user/detail', $data);
     }
-      public function non_active($id) {
+}
+    //   public function non_active($id) {
 
-            $this->load->view('user/non_active');
-    }
+    //         $this->load->view('user/non_active');
+    // }
 }

@@ -53,6 +53,11 @@ class User_model extends CI_Model{
 
        return $data;
     }
+    public function tipe($id){
+        $data = $this->db->where('id',$id)->get($this->tbl_user);
+
+        return $data;
+    }
     
     public function access($id_user,$id_folder){
         $c = $this->db->where(array(
@@ -76,7 +81,10 @@ class User_model extends CI_Model{
         
         return $getdata;
     }
-
+    public function activate($id){
+    $this->db->query("UPDATE users SET isActive = 1 
+                  WHERE id =?", array($id));
+    }
 
 
 

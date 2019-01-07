@@ -15,8 +15,8 @@
                             <label>Tipe</label>
                             <select name="tipe" class="form-control">
                                 <?php
-                                $user = array("admin", "bukan admin");
-                                foreach ($user as $data) {
+                                $users = array("admin", "pegawai");
+                                foreach ($users as $data) {
                                     ?>
                                     <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
                                     <?php
@@ -30,7 +30,19 @@
                         <?php echo bs_input("Email", "required", null, "email"); ?>
                         <?php echo bs_input("Nomor Telepon", "required", null, "phone"); ?>
                         <?php echo bs_input("Kata Sandi", "required", null, "password"); ?>
-                        <?php echo bs_input("Konfirmasi Kata Sandi", "required", null, "password"); ?>                      
+                        <?php echo bs_input("Konfirmasi Kata Sandi", "required", null, "password"); ?> 
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" class="form-control">
+                                <?php $user = array("aktif", "tidak aktif");
+                                foreach ($user as $data) {
+                                    ?>
+                                    <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>                    
                     </div>
                 </div>
             </div>
