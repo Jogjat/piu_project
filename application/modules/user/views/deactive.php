@@ -5,7 +5,7 @@
                 <span aria-hidden="true">&times;</span></button>
                 <h3 class="modal-title" id="myModalLabel">Tidak Aktif Pengguna</h3>
         </div>
-        <form class="form-horizontal" method="post" action="<?php echo base_url('dokumentasi/non_active')?>">
+        <form class="form-horizontal" method="post" action="<?php echo base_url('dokumentasi/deactive')?>">
         <div class="modal-body">
             <p>Anda yakin menonaktifkan pengguna ini ?</p>
         </div>

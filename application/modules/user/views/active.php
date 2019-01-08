@@ -6,7 +6,7 @@
                 <i style="display: inline-block;"class="fa fa-check-circle"></i>
                 <h3 class="modal-title" id="myModalLabel">Aktif Pengguna</h3>
         </div>
-        <form class="form-horizontal" method="post" action="<?php echo base_url('dokumentasi/active')?>">
+        <form class="form-horizontal" method="post" action="<?php echo base_url('user/active')?>">
         <div class="modal-body">
             <p>Anda yakin akan mengaktifkan pengguna ini ?</p>
         </div>

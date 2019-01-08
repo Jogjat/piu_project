@@ -81,10 +81,10 @@ class User_model extends CI_Model{
         
         return $getdata;
     }
-    public function activate($id){
-    $this->db->query("UPDATE users SET isActive = 1 
-                  WHERE id =?", array($id));
-    }
+    // public function activate($id){
+    // $this->db->query("UPDATE users SET isActive = 1 
+    //               WHERE id =?", array($id));
+    // }
 
 
 
