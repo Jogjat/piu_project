@@ -29,9 +29,9 @@
                         <?php echo bs_input("Nama Belakang", "required", null, "last_name"); ?>
                         <?php echo bs_input("Email", "required", null, "email"); ?>
                         <?php echo bs_input("Nomor Telepon", "required", null, "phone"); ?>
-                        <?php echo bs_input("Kata Sandi", "required", null, "password"); ?>
+                        <?php echo bs_input("Kata Sandi", "required", null, "password", 'password'); ?>
                         <?php echo bs_input("Konfirmasi Kata Sandi", "required", null, "password"); ?> 
-                        <div class="form-group">
+<!--                         <div class="form-group">
                             <label>Status</label>
                             <select name="status" class="form-control">
                                 <?php $user = array("aktif", "tidak aktif");
@@ -42,7 +42,7 @@
                                 }
                                 ?>
                             </select>
-                        </div>                    
+                        </div>   -->                  
                     </div>
                 </div>
             </div>
@@ -50,7 +50,11 @@
                 <button class="btn btn-info" type="submit"> TAMBAH</button>
             </div>
         </form>
-        <?php echo px_validate()?>
+        <?php echo px_validate(
+            'kata_sandi: "required",
+            konfirmasi_kata_sandi: {
+            equalTo: "#password"
+            }')?>
         
     </div>
 </div>

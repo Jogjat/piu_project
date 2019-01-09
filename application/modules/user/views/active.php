@@ -3,12 +3,13 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-                <i style="display: inline-block;"class="fa fa-check-circle"></i>
+            
                 <h3 class="modal-title" id="myModalLabel">Aktif Pengguna</h3>
         </div>
-        <form class="form-horizontal" method="post" action="<?php echo base_url('user/active')?>">
+        <form class="form-horizontal" method="post" action="<?php echo base_url('user/update_status/').$id ?>">
+        <input type="hidden" name="a" value="a">
         <div class="modal-body">
-            <p>Anda yakin akan mengaktifkan pengguna ini ?</p>
+            <p>Anda yakin akan mengaktifkan <?php echo $users->first_name.' ' . $users->last_name;?> ?</p>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-info">OK</button>

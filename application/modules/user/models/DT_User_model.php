@@ -6,7 +6,8 @@ class DT_User_Model extends Datatable_Model{
     var $search_column = array(
     	'type',
     	'username',
-    	'email'
+    	'email',
+        'active'
 
     );
     var $select_column = array(
@@ -17,7 +18,7 @@ class DT_User_Model extends Datatable_Model{
         'last_name',
     	'email',
         'phone',
-        'status');
+        'active');
     var $order_column = array(
         'id',
     	'type',

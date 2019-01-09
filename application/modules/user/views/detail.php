@@ -6,19 +6,17 @@
                 <center>DETAIL AKSES FOLDER</center>
             </h4>
         </div>
-        <form class="form-horizontal" action="<?php echo base_url('user/detail') ?>" method="post"
-              role="form">
+        <div style="display: block; height: 300px; width:auto; overflow: scroll">
+        <form class="form-horizontal" action="<?php echo base_url('user/detail') ?>" method="post" role="form">
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-8">
-                    <div class="form-group">
+                        <table class="table">
                         <?php foreach ($userakses as $data): ?>
-                        <?php echo $data->folder_name; ?><br>
+                        <?php echo '<tr> <td>' . $data->folder_name . '</td></tr>';  ?>
                         <?php endforeach; ?>
-                    </div>
-                </div>
+                    </table>
             </div>
         </div>
-        </form>      
+        </form>   
+        </div>
     </div>
 </div>

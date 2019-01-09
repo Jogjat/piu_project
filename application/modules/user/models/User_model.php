@@ -53,38 +53,39 @@ class User_model extends CI_Model{
 
        return $data;
     }
-    public function tipe($id){
-        $data = $this->db->where('id',$id)->get($this->tbl_user);
+    // public function tipe($id){
+    //     $data = $this->db->where('id',$id)->get($this->tbl_user);
 
-        return $data;
-    }
+    //     return $data;
+    // }
     
-    public function access($id_user,$id_folder){
-        $c = $this->db->where(array(
-            'id_user'   => $id_user,            
-            'id_folder' => $id_folder
-        ))->count_all_results($this->tbl_access_folder);
+    // public function access($id_user,$id_folder){
+    //     $c = $this->db->where(array(
+    //         'id_user'   => $id_user,            
+    //         'id_folder' => $id_folder
+    //     ))->count_all_results($this->tbl_access_folder);
 
-        if ($c > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    //     if ($c > 0){
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }
     public function get_akses($id)
     { 
         $this->db->where("id", $id);
-        $this->db->join("access_folder", "id = id_user");
-        $this->db->join("folder", "folder.id_folder = access_folder.id_folder");
+        $this->db->join($this->tbl_access_folder, "id = id_user");
+        $this->db->join($this->tbl_folder, $this->tbl_folder.".id_folder = ".$this->tbl_access_folder.".id_folder");
         
-        $getdata = $this->db->get("users")->result();
+        $getdata = $this->db->get($this->tbl_user)->result();
         
         return $getdata;
     }
-    // public function activate($id){
-    // $this->db->query("UPDATE users SET isActive = 1 
-    //               WHERE id =?", array($id));
-    // }
+    public function update_status($id, $data){
+        $this->db->where("id", $id);
+        $this->db->update($this->tbl_user, $data);
+        return true;
+    }
 
 
 

@@ -28,50 +28,18 @@
                         <?php echo bs_input("Nama Belakang", "required", $users->last_name, $users->id, "last_name"); ?>
                         <?php echo bs_input("Email", "required", $users->email, $users->id, "email"); ?>
                         <?php echo bs_input("Nomor Telepon", "required", $users->phone, $users->id, "phone"); ?>
-                       <?php echo bs_input("Kata Sandi", "required", $users->password, $users->id, "password"); ?>
-                        <?php echo bs_input("Konfirmasi Kata Sandi", "required", $users->password,$users->id, "password"); ?>
-
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select name="status" class="form-control">
-                                <?php $user = array("aktif", "tidak aktif");
-                                foreach ($user as $data) {
-                                    ?>
-                                    <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
-                        </div>             
-                    </div>  
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Akses:</label>
-                        <div class="col-lg-8">
-                            <div class="m-b-2">
-                            <select name="akses[]" class="form-control select2-example select2-hidden-accessible" multiple="" style="width: 100%" tabindex="-1" aria-hidden="true">
-                            <?php foreach ($folder as $data): ?>
-                                <option <?php echo $this->user_model->access($users->id,$data->id_folder) ? "selected" : "" ?> value="<?php echo $data->id_folder; ?>"><?php echo $data->folder_name; ?></option>
-                            <?php endforeach; ?>
-                            </select>
-                        </div>
-                        </div>
-                    </div>      
-                </div>
+                       <?php echo bs_input("Kata Sandi Baru", '', null, "password", 'password'); ?>
+                        <?php echo bs_input("Konfirmasi Kata Sandi Baru", '', null, "password"); ?>
 
             <div class="modal-footer">
             <a class="btn btn-secondary" data-dismiss="modal">Batal</a>
             <button class="btn btn-info" type="submit"> Simpan</button>
       </div>
         </form>
-        <?php echo px_validate()?>
+        <?php echo px_validate(
+        'kata_sandi_baru: "",
+        konfirmasi_kata_sandi_baru: {
+        equalTo: "#password"}')?>
         
     </div>
 </div>
-<script type="text/javascript">
-$(function() {
-      $('.select2-example').select2({
-        placeholder: 'Pilih folder',
-        dropdownParent: $('#myModelDialog')
-      });
-    });
-</script>

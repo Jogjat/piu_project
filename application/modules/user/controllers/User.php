@@ -49,16 +49,13 @@ class User extends MY_Controller
             $sub_array[] = $row->last_name;
             $sub_array[] = $row->email;
             $sub_array[] = $row->phone;
-            $sub_array[] = $row->status;
-            
-            $btn = ajax_modal('user/edit/' . $row->id, 'Ubah', array('warning', 'pencil')).' ';
-            $btn .= ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info')).' ';
-            if($row->status == "aktif"){
-            $btn .= ajax_modal('user/deactive/' . $row->id, 'Tidak aktif', array('danger', ''));
+            $sub_array[] = ($row->active==1)?'aktif':'tidak aktif';
+            $btn = ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info')).' ';
+            $btn .= ajax_modal('user/edit/' . $row->id, 'Ubah', array('warning', 'pencil')).' ';
+            if($row->active == 1){
+            $btn .= ajax_modal('user/update_status/' . $row->id, 'Tidak aktif', array('danger', ''));
             }else
-            $btn .= ajax_modal('user/active/' . $row->id, 'Aktif', array('success', ''));
-            
-            // ajax_modal('user/edit/' . $row->id, 'Ubah', array('warning', 'pencil')) . ' ' . ajax_modal('user/detail/' . $row->id, 'Detail', array('info', 'info')). ' ' . ajax_modal('user/active/' . $row->id, 'Aktif', array('success', '')). ' ' . ajax_modal('user/non_active/' . $row->id, 'Tidak aktif', array('danger', ''));
+            $btn .= ajax_modal('user/update_status/' . $row->id, 'Aktif', array('success', ''));
             $sub_array[] = $btn;
 
             $data[] = $sub_array;
@@ -85,8 +82,7 @@ class User extends MY_Controller
                 'last_name' => $this->input->post('nama_belakang'),
                 'email'    => $this->input->post('email'),
                 'phone' => $this->input->post('nomor_telepon'),
-                'password' => password_hash( $this->input->post( 'kata_sandi' ), PASSWORD_BCRYPT ),
-                'status' => $this->input->post('status')
+                'password' => password_hash( $this->input->post( 'kata_sandi' ), PASSWORD_BCRYPT )
             );
             $this->user_model->create($data);
             $this->session->set_flashdata('notice', 'Data berhasil ditambahkan');
@@ -110,8 +106,7 @@ class User extends MY_Controller
                 'last_name' => $this->input->post('nama_belakang'),
                 'email'    => $this->input->post('email'),
                 'phone' => $this->input->post('nomor_telepon'),
-                'password' => password_hash( $this->input->post( 'kata_sandi' ), PASSWORD_BCRYPT ),
-                'status' => $this->input->post('status')
+                'password' => password_hash( $this->input->post( 'kata_sandi' ), PASSWORD_BCRYPT )
 
             );
             $this->user_model->edit($id, $data);
@@ -134,7 +129,6 @@ class User extends MY_Controller
         }
     }
     public function detail($id) {
-        $this->load->model("user_model");
         
         $data = array();
         $data["userakses"] = $this->user_model->get_akses($id);
@@ -145,19 +139,31 @@ class User extends MY_Controller
         }
 
     }
-    public function active($id) {
-        // $this->load->model("user_model");
-
-        // $active = $this->input->get("active");
-        // if($active == 1){
-        // $this->user_model->activate($id);
-        $this->load->view('user/active');
+    public function update_status($id) {
+        if (count($_POST) > 0) {
+        if($this->user_model->get_user($id)->row()->active==1){
+            $data = array(
+            'active'=> 0
+        );
+        }else{
+            $data = array(
+            'active'=> 1
+        );
+        }
+        
+        $this->user_model->update_status($id, $data);
+        redirect($_SERVER["HTTP_REFERER"]);
+        }else{
+        $data=array(
+            'id'=> $id,
+            'users'=> $this->user_model->get_user($id)->row(),
+        );
+        if($this->user_model->get_user($id)->row()->active==1){
+        $this->load->view('user/deactive', $data);
+        }else{
+        $this->load->view('user/active', $data);
+        }
+        }
     }
-    public function deactive($id) {
-        $this->load->view('user/deactive');
-    }
-    //   public function non_active($id) {
-
-    //         $this->load->view('user/non_active');
-    // }
+    
 }
