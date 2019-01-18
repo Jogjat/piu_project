@@ -77,7 +77,7 @@
             <?php //echo nav_menu('Dashboard', 'dashboard', isset($dashboard) ? $dashboard : '', 'fa-dashboard') ?>
             <?php echo nav_menu('Pengguna', 'user', isset($user) ? $user : '', 'fa-group') ?>
             <?php echo nav_menu('Dokumentasi', 'dokumentasi', isset($dokumentasi) ? $dokumentasi : '', 'fa-folder') ?>
-
+            <?php echo nav_menu('Logbook', 'logbook', isset($logbook) ? $logbook : '', 'fa-clipboard') ?>
         <?php } else { ?>
             <?php echo nav_menu('Dokumentasi', 'dokumentasi', isset($dokumentasi) ? $dokumentasi : '', 'fa-folder') ?>
             <?php echo nav_menu('Progress Report', 'progress_report', isset($progress_report) ? $progress_report : '', 'fa-table') ?>

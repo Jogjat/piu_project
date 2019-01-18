@@ -43,7 +43,9 @@ class Dokumentasi_model extends CI_Model{
 
         return $data;
     }
-
+    function get_tipe($id){
+        $data = $this->db->where('id', $id)->get($this->tbl_user);
+    }
     public function edit($id,$data)
     {
        $this->db->where("id_folder",$id);

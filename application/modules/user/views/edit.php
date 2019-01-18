@@ -3,7 +3,7 @@
         <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             <h4 class="modal-title">
-                <center>ATUR DATA PENGGUNA</center>
+                <center>UBAH DATA PENGGUNA</center>
             </h4>
         </div>
         <form class="form-horizontal" action="<?php echo base_url(); ?>user/edit/<?php echo $users->id ?>" method="post"
@@ -14,14 +14,16 @@
                         <div class="form-group">
                             <label>Tipe</label>
                             <select name="tipe" class="form-control">
-                                <?php $user = array("admin", "pegawai");
-                                foreach ($user as $data) {
+                                <?php
+                                $user = array("admin", "pegawai");
+                                foreach ($user as $data){
                                     ?>
-                                    <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
+                                    <option value="<?php echo $data; ?>"<?php echo ($users->type==$data) ? "selected" : ";" ?> ><?php echo $data ?></option>
                                     <?php
                                 }
                                 ?>
                             </select>
+
                         </div>
                         <?php echo bs_input("Nama Pengguna", "required", $users->username, $users->id, "username"); ?>
                          <?php echo bs_input("Nama depan", "required", $users->first_name, $users->id, "first_name"); ?>

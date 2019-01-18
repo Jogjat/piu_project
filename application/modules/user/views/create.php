@@ -15,8 +15,8 @@
                             <label>Tipe</label>
                             <select name="tipe" class="form-control">
                                 <?php
-                                $users = array("admin", "pegawai");
-                                foreach ($users as $data) {
+                                $user = array("admin", "pegawai");
+                                foreach ($user as $data) {
                                     ?>
                                     <option value="<?php echo strtolower($data); ?>"><?php echo $data; ?></option>
                                     <?php

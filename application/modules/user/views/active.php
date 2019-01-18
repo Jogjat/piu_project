@@ -8,8 +8,9 @@
         </div>
         <form class="form-horizontal" method="post" action="<?php echo base_url('user/update_status/').$id ?>">
         <input type="hidden" name="a" value="a">
-        <div class="modal-body">
-            <p>Anda yakin akan mengaktifkan <?php echo $users->first_name.' ' . $users->last_name;?> ?</p>
+        <div class="modal-body text-center">
+            <span class="fa fa-exclamation-triangle fa-5x" style="color: green"></span>
+            <h3>Anda yakin akan mengaktifkan <?php echo $users->first_name.' ' . $users->last_name;?> ?</h3>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-info">OK</button>
