@@ -10,10 +10,10 @@
            <thead>
            <tr>
                <th>Nama Logbook</th>
-               <th>Bagikan</th>
-               <th>Size</th>
-               <th>Last Modified</th>
-               <th>Action</th>
+               <th></th>
+               <th>Ukuran</th>
+               <th>Terakhir Diubah</th>
+               <th>Opsi</th>
            </tr>
            </thead>
            <tbody>

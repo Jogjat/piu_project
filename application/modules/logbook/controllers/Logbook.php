@@ -17,12 +17,10 @@ class Logbook extends MY_Controller
         if ($this->ion_auth->user()->row()->type != 'admin'){
             redirect('auth/login');
         }
-        $this->load->library( array( 'ion_auth', 'form_validation' ) );
-        $this->form_validation->set_error_delimiters( $this->config->item( 'error_start_delimiter', 'ion_auth' ), $this->config->item( 'error_end_delimiter', 'ion_auth' ) );
         $this->load->model('logbook/logbook_model');
         $this->load->model('logbook/dt_logbook_model', 'dt');
+        $this->load->helper(array('form_helper','url','modal_helper','bs_helper','url'));
         $this->load->model( 'auth/ion_auth_model', 'ion_auth_model' );
-        $this->load->helper(array('form_helper','url','modal_helper','bs_helper'));
 
     }
 
@@ -30,11 +28,10 @@ class Logbook extends MY_Controller
     {
         $data['title'] = 'Logbook';
         $data['logbook'] = 'active';
-        $data['logbooks'] = $this->logbook_model->logbooks()->result();
+        $data['logbooks'] = $this->logbook_model->logbook()->result();
 
         $this->template->main('logbook/index', $data);
     }
-
     public function fetch_data()
     {
         $fetch_data = $this->dt->make_datatables();
@@ -43,11 +40,13 @@ class Logbook extends MY_Controller
         foreach ($fetch_data as $row) {
             $sub_array = array();
             $sub_array[] = $row->logbook_name;
+            $sub_array[] = ajax_modal('logbook/share/' . $row->id_logbook, '', array('', 'share-alt
+                ')).' ';
             $sub_array[] = $row->logbook_name;
-            $sub_array[] = $row->logbook_name;
-            $sub_array[] = $row->logbook_name;
-            $sub_array[] = $row->logbook_name;
-        
+            $sub_array[] = $row->access_date;
+            $sub_array[] = ajax_modal('logbook/preview/' . $row->id_logbook, '', array('info', 'eye')) . ' ' . ajax_modal('logbook/edit/' . $row->id_logbook, '', array('warning', 'pencil')) . ' ' .ajax_modal('logbook/download/' . $row->id_logbook, '', array('success', 'download')) . ' ' . ajax_modal('logbook/delete/' . $row->id_logbook, '', array(
+                    'danger','trash'));
+
             $data[] = $sub_array;
         }
 
@@ -58,6 +57,7 @@ class Logbook extends MY_Controller
             'data'            => $data
         );
         echo json_encode($output);
+
     }
 
     public function create()
@@ -68,8 +68,18 @@ class Logbook extends MY_Controller
             $this->template->main('logbook/create');
         }
     }
-    public function delete()
-    {
+    public function delete($id_logbook)
+    {   if (count($_POST) > 0) {
+            $this->logbook_model->delete($id_logbook);
+            $this->session->set_flashdata('notice', 'Berhasil Menghapus Logbook');
+            redirect($_SERVER["HTTP_REFERER"]);
+        } else {
+            $data = array(
+                'logbook_name' => 'Logbook'.$this->dokumentasi_model->get_logbook($id_logbook)->row()->folder_name,
+                'uri'   => '/dokumentasi/delete/' . $id
+            );
+            $this->load->view('modals/delete', $data);
+        }
         if($this->input->is_ajax_request()){
             $this->load->view('logbook/delete');
         }else{
@@ -84,7 +94,7 @@ class Logbook extends MY_Controller
             $this->template->main('logbook/download');
         }
     }
-    public function edit()
+    public function edit($id_logbook)
     {
         if($this->input->is_ajax_request()){
             $this->load->view('logbook/edit');
@@ -92,7 +102,7 @@ class Logbook extends MY_Controller
             $this->template->main('logbook/edit');
         }
     }
-    public function preview()
+    public function preview($id_logbook)
     {
         if($this->input->is_ajax_request()){
             $this->load->view('logbook/preview');
@@ -100,7 +110,7 @@ class Logbook extends MY_Controller
             $this->template->main('logbook/preview');
         }
     }
-    public function share()
+    public function share($id_logbook)
     {
         if($this->input->is_ajax_request()){
             $this->load->view('logbook/share');
