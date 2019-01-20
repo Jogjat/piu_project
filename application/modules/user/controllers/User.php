@@ -141,29 +141,35 @@ class User extends MY_Controller
     }
     public function update_status($id) {
         if (count($_POST) > 0) {
-        if($this->user_model->get_user($id)->row()->active==1){
+            if($this->user_model->get_user($id)->row()->active==1){
             $data = array(
-            'active'=> 0
-        );
+            'active'=> 0);
+            }else{
+            $data = array(
+            'active'=> 1);
+            }
+            $this->user_model->update_status($id, $data);
+            redirect($_SERVER["HTTP_REFERER"]);
         }else{
-            $data = array(
-            'active'=> 1
-        );
+            $data=array(
+            'id'=> $id,
+            'users'=> $this->user_model->get_user($id)->row() );
+            if($this->input->is_ajax_request()){
+                if($this->user_model->get_user($id)->row()->active==1){
+                $this->load->view('user/deactive', $data);
+                }else{
+                $this->load->view('user/active', $data);
+            }
+            }else{
+                if($this->user_model->get_user($id)->row()->active==1){
+                $this->template->main('user/deactive', $data);
+            }else{
+                $this->template->main('user/active', $data);
+            }
+            }
+            
         }
         
-        $this->user_model->update_status($id, $data);
-        redirect($_SERVER["HTTP_REFERER"]);
-        }else{
-        $data=array(
-            'id'=> $id,
-            'users'=> $this->user_model->get_user($id)->row(),
-        );
-        if($this->user_model->get_user($id)->row()->active==1){
-        $this->load->view('user/deactive', $data);
-        }else{
-        $this->load->view('user/active', $data);
-        }
-        }
     }
     
 }

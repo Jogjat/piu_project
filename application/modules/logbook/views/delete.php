@@ -5,7 +5,8 @@
                 	<span aria-hidden="true">&times;</span></button>
                 <h3 class="modal-title" id="myModalLabel">Hapus Logbook</h3>
             </div>
-            <form class="form-horizontal" method="post" action="<?php echo base_url('logbook/index')?>">
+            <form class="form-horizontal" method="post" action="<?php echo base_url('logbook/index') ?>">
+                <input type="hidden" name="a" value="a">
                 <div class="modal-body text-center">
                     <span class="fa fa-exclamation-triangle fa-5x" style="color: orange"></span>
                     <h3>Anda yakin mau menghapus ?</h3>

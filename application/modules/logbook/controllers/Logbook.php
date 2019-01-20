@@ -68,22 +68,26 @@ class Logbook extends MY_Controller
             $this->template->main('logbook/create');
         }
     }
-    public function delete($id_logbook)
+    public function delete($id)
     {   if (count($_POST) > 0) {
-            $this->logbook_model->delete($id_logbook);
+            $this->logbook_model->delete($id);
             $this->session->set_flashdata('notice', 'Berhasil Menghapus Logbook');
             redirect($_SERVER["HTTP_REFERER"]);
-        } else {
-            $data = array(
-                'logbook_name' => 'Logbook'.$this->dokumentasi_model->get_logbook($id_logbook)->row()->folder_name,
-                'uri'   => '/dokumentasi/delete/' . $id
-            );
-            $this->load->view('modals/delete', $data);
         }
-        if($this->input->is_ajax_request()){
-            $this->load->view('logbook/delete');
-        }else{
-            $this->template->main('logbook/delete');
+        else {
+            if($this->logbook_model->get_logbook($id)->row()==null){
+                redirect("logbook");
+            }
+
+            $data = array(
+                'judul' => 'Logbook '.$this->logbook_model->get_logbook($id)->row()->logbook_name,
+                'uri'   => '/logbook/delete/' . $id
+            );
+            if($this->input->is_ajax_request()){
+            $this->load->view('modals/delete', $data);
+            }else{
+            $this->template->main('modals/delete', $data);
+            }
         }
     }
     public function download()
