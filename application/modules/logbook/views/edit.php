@@ -6,13 +6,14 @@
                 <center>UBAH LOGBOOK</center>
             </h4>
         </div>
-        <form class="form-horizontal" action="<?php echo base_url('logbook/edit') ?>" method="post"
+        <form class="form-horizontal" action="<?php echo base_url(); ?>logbook/edit/<?php echo $logbook->id_logbook ?>"" method="post"
               role="form" id="validation-form">
             <div class="modal-body">
             <div class="col-md-10 col-md-offset-1">
             <div class="row">
-                <div class="col-md-5 col-md-offset-0"><?php echo bs_input("Nama Logbook", "required", null, "logbook_name"); ?></div>
-                <div class="col-md-6 col-md-offset-1"><?php echo bs_input("Tanggal Logbook", "required", null, "logbook_name"); ?>
+                <div class="col-md-5 col-md-offset-0"><?php echo bs_input("Nama Logbook", "required", $logbook->logbook_name, $logbook->id_logbook, "logbook_name"); ?></div>
+                <div class="col-md-6 col-md-offset-1">
+                    Tanggal Logbook <input type="text" value="<?php echo date('d-m-Y') ?>">
                 </div>  
             </div>
             <div class="form-group">
@@ -21,9 +22,9 @@
                         *pdf, jpeg, jpg
             </div>
             <div class="control-group">
-                <label class="control-label" for="inputnama">Deskripsi Logbook</label>
+                <label class="control-label" for="description">Deskripsi Logbook</label>
                     <div class="controls">
-                        <textarea rows="5" cols="40" class="form-control" id="inputnama" required="required" name="deskripsi" placeholder="deskripsi"></textarea>
+                        <textarea rows="5" cols="40" class="form-control" id="description" required="required" name="deskripsi" value="<?php echo $logbook->description; ?>"></textarea>
                         <span class="help-block"></span>
                      </div>
             </div>
@@ -35,7 +36,7 @@
             </div>
         </form>
         <?php echo px_validate("
-        'nama_folder': {
+        'nama_logbook': {
             maxlength: 190,
          },
           "); ?>
